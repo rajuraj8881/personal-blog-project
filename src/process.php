@@ -1,5 +1,6 @@
 <?php
     include_once'connection.php';
+    
     if(isset($_POST['Submit'])){
         $name = $_POST['name'];
         $password = $_POST['password'];
