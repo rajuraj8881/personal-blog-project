@@ -53,5 +53,21 @@
         header("location:dashboard.php");
     }
 
-    
+    //Add post
+    if (isset($_POST['postSubmit'])) {
+        $title = $_POST['post-title'];
+        $description = $_POST['post-description'];
+     
+        $addpost = $conn->prepare("INSERT INTO addpost(title, description) VALUES(:titile,:description)");
+        $addpost->bindParam(':titile', $title);
+        $addpost->bindParam(':description', $description);
+        $setpost = $addpost->execute();
+
+        if ($setpost) {
+            header("location:dashboard.php");
+        }else{
+            echo"Something want to wrong";
+        }
+        
+    }
 ?>

@@ -1,5 +1,9 @@
 <?php
+    include_once'connection.php';
     session_start();
+    $result = $conn->prepare("SELECT * FROM addpost");
+    $result->execute();
+    $users = $result->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,10 +16,48 @@
     <?php
         if (isset($_SESSION['email'])) {
     ?>
-    <h1>Welcome <?php echo $_SESSION['name']; ?></h1><br>
-    <h1> <?php echo $_SESSION['id']; ?></h1><br>
-    <h1> <?php echo $_SESSION['email']; ?></h1><br>
+    <div class="container">
+        <div class="row">
+            <table id="table-body">
+                <thead>
+                    <tr>
+                        <th class="table-header" width="20%">Id</th>
+                        <th class="table-header" width="20%">Title</th>
+                        <th class="table-header" width="20%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        $result = $conn->prepare("SELECT * FROM addpost");
+                        $result->execute();
+                        $users = $result->fetchAll();
+                        $counter = 0;
+                        foreach($users as $user):
+                    ?>
+                    <tr class="table-row">
+                        <td><?php echo ++$counter; ?></td>
+                        <td><?php echo $user['title']; ?></td>
+                        <td><?php echo $user['description']; ?></td>
+                        <td>
+                            <a class="ajax-action-links" href='#'>
+                                <img src="icon/edit.png" title="Edit" />
+                            </a>
+                            <a class="ajax-action-links" href='#'>
+                                <img src="icon/delete.png" title="Delete" />
+                            </a>
+                        </td>
+                    </tr>
+                    <?php
+                        endforeach;
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <h4><a href="addpost.php">Add Post</a></h4>
     <h4><a href="logout.php">Logout</a></h4>
+    
     <?php
         }else echo "<h1>Please login first.</h1>";
     ?>
