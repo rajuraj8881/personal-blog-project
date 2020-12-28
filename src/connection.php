@@ -7,4 +7,6 @@
     } catch (PDOEXCEPTION $e) {
        // echo "The error is : ".$e->getMessage();
     }
+
+    
 ?>
