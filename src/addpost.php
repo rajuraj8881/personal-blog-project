@@ -6,7 +6,6 @@
     <title>Dashboard</title>
 </head>
 <body>
-
     <div class="container">
         <div class="row">
             <h1>Add Post</h1>

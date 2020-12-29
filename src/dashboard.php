@@ -3,7 +3,7 @@
     session_start();
     $result = $conn->prepare("SELECT * FROM addpost");
     $result->execute();
-    $users = $result->fetchAll();
+    $users = $result->fetchAll(PDO::FETCH_OBJ);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,18 +28,15 @@
                 </thead>
                 <tbody>
                     <?php
-                        $result = $conn->prepare("SELECT * FROM addpost");
-                        $result->execute();
-                        $users = $result->fetchAll();
                         $counter = 0;
                         foreach($users as $user):
                     ?>
                     <tr class="table-row">
                         <td><?php echo ++$counter; ?></td>
-                        <td><?php echo $user['title']; ?></td>
-                        <td><?php echo $user['description']; ?></td>
+                        <td><?php echo $user->title; ?></td>
+                        <td><?php echo $user->description; ?></td>
                         <td>
-                            <a class="ajax-action-links" href='#'>
+                            <a class="ajax-action-links" href='edit.php?id=<?php echo $user->id; ?>'>
                                 <img src="icon/edit.png" title="Edit" />
                             </a>
                             <a class="ajax-action-links" href='#'>

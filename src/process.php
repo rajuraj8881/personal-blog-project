@@ -70,4 +70,19 @@
         }
         
     }
+
+    //edit post
+    if (isset($_POST['sUpdate'])) {
+        $id = $_POST['id'];
+        $title = $_POST['post-title'];
+        $description = $_POST['post-description'];
+
+        $query = $conn->prepare("UPDATE addpost SET title=:title, description=:description WHERE id=:id");
+        $query->bindParam(':title',$title);
+        $query->bindParam(':description',$description);
+        $query->bindParam(':id',$id);
+        $query->execute();
+            echo"Success";
+    }
+    
 ?>
