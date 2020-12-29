@@ -39,7 +39,7 @@
                             <a class="ajax-action-links" href='edit.php?id=<?php echo $user->id; ?>'>
                                 <img src="icon/edit.png" title="Edit" />
                             </a>
-                            <a class="ajax-action-links" href='#'>
+                            <a class="ajax-action-links" href='delete.php?id=<?php echo $user->id; ?>'>
                                 <img src="icon/delete.png" title="Delete" />
                             </a>
                         </td>
