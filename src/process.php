@@ -72,7 +72,7 @@
     }
 
     //edit post
-    if (isset($_POST['sUpdate'])) {
+    if (isset($_POST['updatePost'])) {
         $id = $_POST['id'];
         $title = $_POST['post-title'];
         $description = $_POST['post-description'];
