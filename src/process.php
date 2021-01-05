@@ -2,9 +2,9 @@
     include_once'connection.php';
     
     if(isset($_POST['Submit'])){
-        $name = $_POST['name'];
-        $password = $_POST['password'];
-        $email = $_POST['email'];
+        $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+        $password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 
         $query = $conn->prepare( "SELECT * FROM users WHERE email = :email" );
         $query->execute(array(':email'=> $email));
@@ -14,7 +14,7 @@
         }else{
             $query = $conn->prepare("INSERT INTO users(name, password, email) value(:name,:password,:email)");
             $query->bindParam(':name', $name);
-            $query->bindParam(':password', $password);
+            $query->bindParam(':password', $password_hash);
             $query->bindParam(':email', $email);
             $query->execute();
             if ($query->rowCount() > 0) {
