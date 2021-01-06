@@ -3,9 +3,10 @@
     session_start();
     //register
     if(isset($_POST['regSubmit'])){
-        $name = $_POST['name'];
+        $name = real_escape_string($_POST['name']);
         $password = $_POST['password'];
-        $email = $_POST['email'];
+        $password = md5($password);
+        $email = real_escape_string($_POST['email']);
 
         $query = $conn->prepare( "SELECT * FROM users WHERE email = :email" );
         $query->execute(array(':email'=> $email));
@@ -26,8 +27,9 @@
 
     //login section 
     if (isset($_POST['logSubmit'])) {
-      $email = $_POST['email'];
+      $email = real_escape_string($_POST['email']);
       $password = $_POST['password'];
+      $password = md5($password);
         if ($email !='' && $password != '') {
             $query = "SELECT * FROM users WHERE email = :email AND password =:password";
             $stmt = $conn->prepare($query);
