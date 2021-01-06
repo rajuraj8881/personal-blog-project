@@ -22,6 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simgle Post</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    
     <style>
         body {
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -67,24 +68,47 @@
     </div>
     <div class="container">
         <div class="row">
-            <button class="dislike">
-                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-            </button>
-
             <button class="like">
                 <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
             </button>
+            <button class="dislike">
+                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+            </button>
         </div>
+        <div class="comment">
+            <h5>Show All Comment</h5>
+            <?php
+                //Show comment Query
+                $cmmt = $conn->prepare("SELECT addpost.id, comnt.post_id, comnt.comment 
+                FROM comnt INNER JOIN addpost 
+                ON comnt.post_id = addpost.id where addpost.id = $id");
+                $cmmt->execute();
+                while($row = $cmmt->fetch(PDO::FETCH_OBJ)){  
+            ?>
+
+                <p><?php echo  $row->comment; ?></p>
+
+            <?php
+                }
+            ?>
         <div class="row">
             <div>
                 <label>
                     <span>Comment</span><span>*</span>
                 </label>
                 <div>
-                    <textarea placeholder="YOUR TEXT" rows="4" cols="50"></textarea>
-                        
-                    </textarea><br>
-                    <input type="submit" value="comment" name="comment">
+                    <form action="process.php" method="post">
+                        <?php
+                            foreach($users as $user):
+                        ?>
+                        <input type="hidden" name="post_id" value="<?php echo $user->id; ?>">
+                        <?php 
+                            endforeach;
+                        ?>
+                        <textarea placeholder="YOUR TEXT" rows="4" cols="50"  name="user-comment"></textarea>
+                        <br>
+                        <input type="submit" value="comment" name="comment">
+                    </form>
                 </div>
             </div>
         </div>
