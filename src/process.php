@@ -84,5 +84,16 @@
         $query->execute();
             echo"Success";
     }
+
+     //post comment
+     if (isset($_POST['comment'])) {
+        $cmnt = $_POST['user-comment'];
+        $post_id = $_POST['post_id'];
+        
+        $cmmt = $conn->prepare("INSERT INTO comnt(post_id, comment) VALUES(:post_id, :comment)");
+        $cmmt->bindParam(':comment', $cmnt);
+        $cmmt->bindParam(':post_id', $post_id);
+        $cmmt->execute();
+    }
     
 ?>
