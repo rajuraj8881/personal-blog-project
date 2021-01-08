@@ -1,6 +1,8 @@
 <?php
     include_once'connection.php';
     session_start();
+    $uId = $_SESSION['id'];
+    $uName = $_SESSION['name'];
     $result = $conn->prepare("SELECT * FROM addpost");
     $result->execute();
     $users = $result->fetchAll(PDO::FETCH_OBJ);
@@ -51,7 +53,7 @@
         </div>
     </div>
     
-    <h4><a href="addpost.php">Add Post</a></h4>
+    <h4><a href="addpost.php?id=<?php echo $uId; ?>&&name=<?php echo $uName; ?>">Add Post</a></h4>
     <h4><a href="logout.php">Logout</a></h4>
     
     <?php

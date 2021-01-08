@@ -60,10 +60,12 @@
 
     //Add post
     if (isset($_POST['postSubmit'])) {
+        $user_id = $_POST['user_id'];
         $title = $_POST['post-title'];
         $description = $_POST['post-description'];
      
-        $addpost = $conn->prepare("INSERT INTO addpost(title, description) VALUES(:titile,:description)");
+        $addpost = $conn->prepare("INSERT INTO addpost(user_id, title, description) VALUES(:user_id, :titile,:description)");
+        $addpost->bindParam(':user_id', $user_id);
         $addpost->bindParam(':titile', $title);
         $addpost->bindParam(':description', $description);
         $setpost = $addpost->execute();
