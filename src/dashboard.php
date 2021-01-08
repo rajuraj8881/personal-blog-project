@@ -39,7 +39,6 @@
                     <tr class="table-row">
                         <td><?php echo ++$counter; ?></td>
                         <td><?php echo $user['title']; ?></td>
-                        <td><?php echo $user['description']; ?></td>
                         <td>
                             <a class="ajax-action-links" href='#'>
                                 <img src="icon/edit.png" title="Edit" />
