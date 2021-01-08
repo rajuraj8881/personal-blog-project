@@ -55,10 +55,12 @@
 
     //Add post
     if (isset($_POST['postSubmit'])) {
+        $user_id = $_POST['user_id'];
         $title = $_POST['post-title'];
         $description = $_POST['post-description'];
      
-        $addpost = $conn->prepare("INSERT INTO addpost(title, description) VALUES(:titile,:description)");
+        $addpost = $conn->prepare("INSERT INTO addpost(user_id, title, description) VALUES(:user_id, :titile,:description)");
+        $addpost->bindParam(':user_id', $user_id);
         $addpost->bindParam(':titile', $title);
         $addpost->bindParam(':description', $description);
         $setpost = $addpost->execute();
@@ -70,4 +72,30 @@
         }
         
     }
+
+    //edit post
+    if (isset($_POST['updatePost'])) {
+        $id = $_POST['id'];
+        $title = $_POST['post-title'];
+        $description = $_POST['post-description'];
+
+        $query = $conn->prepare("UPDATE addpost SET title=:title, description=:description WHERE id=:id");
+        $query->bindParam(':title',$title);
+        $query->bindParam(':description',$description);
+        $query->bindParam(':id',$id);
+        $query->execute();
+            echo"Success";
+    }
+
+     //post comment
+     if (isset($_POST['comment'])) {
+        $cmnt = $_POST['user-comment'];
+        $post_id = $_POST['post_id'];
+        
+        $cmmt = $conn->prepare("INSERT INTO comnt(post_id, comment) VALUES(:post_id, :comment)");
+        $cmmt->bindParam(':comment', $cmnt);
+        $cmmt->bindParam(':post_id', $post_id);
+        $cmmt->execute();
+    }
+    
 ?>
