@@ -55,7 +55,7 @@
         </div>
     </div>
     
-    <h4><a href="addpost.php">Add Post</a></h4>
+    <h4><a href="addpost.php?id=<?php echo $uid;?>">Add Post</a></h4>
     <h4><a href="logout.php">Logout</a></h4>
     
     <?php

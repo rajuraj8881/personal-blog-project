@@ -74,9 +74,14 @@
             <button class="dislike">
                 <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
             </button>
+            <div class="count">
+            <span><i>10</i></span>
+            <span><i>10</i></span>
+            </div>
+
         </div>
         <div class="comment">
-            <h5>Show All Comment</h5>
+            <h5><span><i>(10)</i></span> Show All Comment</h5>
             <?php
                 //Show comment Query
                 $cmmt = $conn->prepare("SELECT addpost.id, comnt.post_id, comnt.comment 
@@ -96,6 +101,7 @@
                 <label>
                     <span>Comment</span><span>*</span>
                 </label>
+
                 <div>
                     <form action="process.php" method="post">
                         <?php
