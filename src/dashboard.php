@@ -48,7 +48,7 @@
                     <?php
                         endforeach;
                     ?>
-                </tbody>
+                 </tbody> <!--End table body -->
             </table>
         </div>
     </div>
