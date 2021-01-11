@@ -3,9 +3,6 @@
     session_start();
     $uId = $_SESSION['id'];
     $uName = $_SESSION['name'];
-    $result = $conn->prepare("SELECT * FROM addpost");
-    $result->execute();
-    $users = $result->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +27,7 @@
                 </thead>
                 <tbody>
                     <?php
-                        $result = $conn->prepare("SELECT * FROM addpost");
+                        $result = $conn->prepare("SELECT * FROM addpost WHERE user_id=$uId");
                         $result->execute();
                         $users = $result->fetchAll();
                         $counter = 0;
