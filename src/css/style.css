@@ -3,3 +3,13 @@
     margin: 80px auto;
     background: #f1f1f1;
 }
+
+.menu li{
+    display: inline-flex;
+    padding: 15px;
+}
+
+.menu li a{
+    text-decoration: none;
+    
+}

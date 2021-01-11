@@ -1,7 +1,8 @@
 <?php
     include_once'connection.php';
     session_start();
-    $result = $conn->prepare("SELECT * FROM addpost");
+    $uid = $_SESSION['id'];
+    $result = $conn->prepare("SELECT * FROM addpost where user_id=$uid");
     $result->execute();
     $users = $result->fetchAll(PDO::FETCH_OBJ);
 ?>
@@ -11,12 +12,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
     <?php
         if (isset($_SESSION['email'])) {
     ?>
     <div class="container">
+    <?php include'lib/menu.php'?>
         <div class="row">
             <table id="table-body">
                 <thead>
