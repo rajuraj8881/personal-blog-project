@@ -36,8 +36,7 @@
                 <label>Title:</label><br>
                 <input type="text" name="post-title" value="<?php echo $row->title;?>"><br>
                 <label>Description:</label><br>
-                <textarea rows="4" cols="50" name="post-description"><?php echo $row->description;?>
-                </textarea>
+                <textarea rows="4" cols="50" name="post-description"><?php echo $row->description;?></textarea>
                 <br><br>
                     <?php
                             endforeach;
