@@ -1,7 +1,8 @@
 <?php
     include_once'connection.php';
     session_start();
-    $result = $conn->prepare("SELECT * FROM addpost");
+    $uid = $_SESSION['id'];
+    $result = $conn->prepare("SELECT * FROM addpost where user_id=$uid");
     $result->execute();
     $users = $result->fetchAll(PDO::FETCH_OBJ);
 ?>
