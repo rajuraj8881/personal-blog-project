@@ -67,18 +67,21 @@
     </div>
     <div class="container">
         <div class="row">
-            <button class="dislike">
-                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-            </button>
-
             <button class="like">
                 <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
             </button>
+            <button class="dislike">
+                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+            </button>
+            <div class="count">
+            <span><i>10</i></span>
+            <span><i>10</i></span>
+            </div>
         </div>
         <div class="row">
             <div>
                 <label>
-                    <span>Comment</span><span>*</span>
+                <span><i>10</i></span> <span>Comment</span><span>*</span>
                 </label>
                 <div>
                     <textarea placeholder="YOUR TEXT" rows="4" cols="50"></textarea>
