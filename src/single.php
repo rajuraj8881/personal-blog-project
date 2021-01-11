@@ -73,9 +73,7 @@
             </button>
             <button class="dislike">
                 <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-            </button><br>
-                <p><span><i>10</i></span>
-                <span><i>10</i></span></p>
+            </button>
         </div>
         <div class="comment">
             <h5>Show All Comment</h5>
@@ -96,7 +94,7 @@
         <div class="row">
             <div>
                 <label>
-                <span><i>10</i></span> <span>Comment</span><span>*</span>
+                    <span>Comment</span><span>*</span>
                 </label>
                 <div>
                     <form action="process.php" method="post">
@@ -107,7 +105,7 @@
                         <?php 
                             endforeach;
                         ?>
-                        <textarea placeholder="YOUR TEXT" rows="4" cols="50"  name="user-comment"></textarea>
+                        <textarea placeholder="YOUR TEXT" rows="4"  cols="50"  name="user-comment"></textarea>
                         <br>
                         <input type="submit" value="comment" name="comment">
                     </form>

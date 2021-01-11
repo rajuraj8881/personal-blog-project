@@ -1,11 +1,10 @@
 <?php
     include_once'connection.php';
-    session_start(); 
+    session_start();
     $uid = $_SESSION['id'];
     $result = $conn->prepare("SELECT * FROM addpost where user_id=$uid");
     $result->execute();
     $users = $result->fetchAll(PDO::FETCH_OBJ);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,20 +32,17 @@
                 </thead>
                 <tbody>
                     <?php
-                        $result = $conn->prepare("SELECT * FROM addpost WHERE user_id=$uId");
-                        $result->execute();
-                        $users = $result->fetchAll();
                         $counter = 0;
                         foreach($users as $user):
                     ?>
                     <tr class="table-row">
                         <td><?php echo ++$counter; ?></td>
-                        <td><?php echo $user['title']; ?></td>
+                        <td><a href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></td>
                         <td>
-                            <a class="ajax-action-links" href='#'>
+                            <a class="ajax-action-links" href='edit.php?id=<?php echo $user->id; ?>'>
                                 <img src="icon/edit.png" title="Edit" />
                             </a>
-                            <a class="ajax-action-links" href='#'>
+                            <a class="ajax-action-links" href='delete.php?id=<?php echo $user->id; ?>'>
                                 <img src="icon/delete.png" title="Delete" />
                             </a>
                         </td>
@@ -54,12 +50,12 @@
                     <?php
                         endforeach;
                     ?>
-                 </tbody> <!--End table body -->
+                </tbody>
             </table>
         </div>
     </div>
     
-    <h4><a href="addpost.php?id=<?php echo $uId; ?>&&name=<?php echo $uName; ?>">Add Post</a></h4>
+    <h4><a href="addpost.php">Add Post</a></h4>
     <h4><a href="logout.php">Logout</a></h4>
     
     <?php
