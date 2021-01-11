@@ -73,7 +73,9 @@
             </button>
             <button class="dislike">
                 <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-            </button>
+            </button><br>
+                <p><span><i>10</i></span>
+                <span><i>10</i></span></p>
         </div>
         <div class="comment">
             <h5>Show All Comment</h5>
@@ -94,7 +96,7 @@
         <div class="row">
             <div>
                 <label>
-                    <span>Comment</span><span>*</span>
+                <span><i>10</i></span> <span>Comment</span><span>*</span>
                 </label>
                 <div>
                     <form action="process.php" method="post">
