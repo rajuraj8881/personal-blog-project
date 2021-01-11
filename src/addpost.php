@@ -9,30 +9,24 @@
     if(isset($_GET['id'])){
         $id = $_GET['id'];
     }
-    $urAdpst = $conn->prepare("SELECT * FROM users WHERE id=$id");
-    $urAdpst->execute();
-    $userid = $urAdpst->fetchAll(PDO::FETCH_OBJ);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Add Post</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <div class="container">
+    <?php include'lib/menu.php'?>
         <div class="row">
             <h1>Add Post</h1>
             <h1><a href="dashboard.php">Home</a></h1>
             <form action="process.php" method="post">
-                <?php
-                    foreach($userid as $user):
-                ?>
-                <input type="hidden" name="user_id" value="<?php echo $user->id;?>"><br>
-                <?php
-                    endforeach;
-                ?>
+            <input type="text" hidden="" name="user_id" value="<?php echo $id?>" ><br>
                 <label>Title:</label><br>
                 <input type="text" name="post-title"><br>
                 <label>Description:</label><br>
