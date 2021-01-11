@@ -2,7 +2,6 @@
     include_once'connection.php';
     session_start();
     $uId = $_SESSION['id'];
-    $uName = $_SESSION['name'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
