@@ -1,6 +1,9 @@
 <?php
     include_once'connection.php';
     session_start();
+    if (!$_SESSION['id']) {
+        header('location:login.php');
+    }
     $uid = $_SESSION['id'];
     $result = $conn->prepare("SELECT * FROM addpost where user_id=$uid");
     $result->execute();
