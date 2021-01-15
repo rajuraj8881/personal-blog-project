@@ -68,17 +68,34 @@
     </div>
     <div class="container">
         <div class="row">
-            <button class="like">
-                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-            </button>
-            <button class="dislike">
-                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-            </button>
-            <div class="count">
-            <span><i>10</i></span>
-            <span><i>10</i></span>
-            </div>
-
+        <?php
+            //Like Dislike 
+            if (isset($_POST['like']) || isset($_POST['dislike'])) {
+                $post_id = $_POST['post_id'];
+                $like1 = 'like';
+                $dislike1 = 'dislike';
+                if (isset($_POST['like'])) {
+                    $plike = $conn->prepare("INSERT INTO like_dislike(post_id, plike) VALUES(:post_id, :plike)");
+                    $plike->bindParam(':post_id', $post_id);
+                    $plike->bindParam(':plike', $like1);
+                    $plike->execute(); 
+                }else if (isset($_POST['dislike'])) {
+                    $plike = $conn->prepare("INSERT INTO like_dislike(post_id, pdislike) VALUES(:post_id, :pdislike)");
+                    $plike->bindParam(':post_id', $post_id);
+                    $plike->bindParam(':pdislike', $dislike1);
+                    $plike->execute(); 
+                }
+            }
+        ?>
+            <form action="single.php" method="post">
+            <input type="hidden" name="post_id" value="<?php echo $id; ?>">
+                <button class="like" type="submit" name="like">
+                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                </button>
+                <button class="dislike" type="submit" name="dislike">
+                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                </button>
+            </form>
         </div>
         <div class="comment">
             <h5><span><i>(10)</i></span> Show All Comment</h5>
