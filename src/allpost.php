@@ -4,7 +4,7 @@
     if (!$_SESSION['id']) {
         header('location:login.php');
     }
-    $uId = $_SESSION['id'];
+    $uid = $_SESSION['id'];
     $uName = $_SESSION['name'];
 ?>
 <!DOCTYPE html>

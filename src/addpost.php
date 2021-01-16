@@ -9,6 +9,11 @@
     if(isset($_GET['id'])){
         $id = $_GET['id'];
     }
+
+    if (!$_SESSION['id']) {
+        header('location:login.php');
+    }
+    $uid = $_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html>
