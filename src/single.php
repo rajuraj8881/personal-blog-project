@@ -97,6 +97,13 @@
                         $like->bindParam(':post_id', $post_id);
                         $like->bindParam(':islikes', $type);
                         $like->execute();
+                    }elseif ($query->rowCount() == 1){
+                        //If before the user does not like  then insert 1(like)
+                        $like = $conn->prepare("INSERT INTO likesdislikes(user_id, post_id, islikes) VALUES(:user_id, :post_id, :islikes)");
+                        $like->bindParam(':user_id', $uid);
+                        $like->bindParam(':post_id', $post_id);
+                        $like->bindParam(':islikes', $type);
+                        $like->execute();
                     }
 
 
@@ -156,7 +163,7 @@
                 }
             ?>
             <form action="single.php?id=<?php echo $id;?>" method="post">
-            <input type="hidden" name="post_id" value="<?php echo $id; ?>">
+                <input type="hidden" name="post_id" value="<?php echo $id; ?>">
                 <button class="like" type="submit" name="like">
                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                 </button>
