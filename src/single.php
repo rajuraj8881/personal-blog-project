@@ -9,6 +9,14 @@
     if(isset($_GET['id'])){
         $id = $_GET['id'];
     }
+    if (!$_SESSION['id']) {
+        header('location:login.php');
+    }
+
+    //get session login user id 
+    $uid = $_SESSION['id'];
+
+    //show login user all post
     $result = $conn->prepare("SELECT * FROM addpost WHERE id='$id'");
     $result->execute();
     $users = $result->fetchAll(PDO::FETCH_OBJ);
@@ -68,26 +76,86 @@
     </div>
     <div class="container">
         <div class="row">
-        <?php
-            //Like Dislike 
-            if (isset($_POST['like']) || isset($_POST['dislike'])) {
-                $post_id = $_POST['post_id'];
-                $like1 = 'like';
-                $dislike1 = 'dislike';
-                if (isset($_POST['like'])) {
-                    $plike = $conn->prepare("INSERT INTO like_dislike(post_id, plike) VALUES(:post_id, :plike)");
-                    $plike->bindParam(':post_id', $post_id);
-                    $plike->bindParam(':plike', $like1);
-                    $plike->execute(); 
-                }else if (isset($_POST['dislike'])) {
-                    $plike = $conn->prepare("INSERT INTO like_dislike(post_id, pdislike) VALUES(:post_id, :pdislike)");
-                    $plike->bindParam(':post_id', $post_id);
-                    $plike->bindParam(':pdislike', $dislike1);
-                    $plike->execute(); 
+            <?php
+                //like dislike System
+                if (isset($_POST['like']) ) {
+                    $post_id = $_POST['post_id'];
+                    $type = true;
+                    $type2 = false;
+
+                    //check user already like
+                    $query = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
+                    $query->execute(array(':post_id'=> $post_id,
+                                            ':user_id'=> $uid,
+                                            ':islikes' => $type
+                        ));
+                    if ($query->rowCount() == 0) {
+
+                        //If before the user does not like  then insert 1(like)
+                        $like = $conn->prepare("INSERT INTO likesdislikes(user_id, post_id, islikes) VALUES(:user_id, :post_id, :islikes)");
+                        $like->bindParam(':user_id', $uid);
+                        $like->bindParam(':post_id', $post_id);
+                        $like->bindParam(':islikes', $type);
+                        $like->execute();
+                    }
+
+
+                    //check user already dislike 
+                    $unlikeChack = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
+                    $unlikeChack->execute(array(':post_id'=> $post_id,
+                                            ':user_id'=> $uid,
+                                            ':islikes' => $type2
+                        ));
+                    if ($unlikeChack->rowCount() == 1) {
+
+                        //if user allready dislike then like
+                        $dele = $conn->prepare( "DELETE FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
+                        $dele->bindParam(":post_id",$post_id,PDO::PARAM_INT);
+                        $dele->bindParam(":user_id",$uid,PDO::PARAM_INT);
+                        $dele->bindParam(":islikes",$type2,PDO::PARAM_INT);
+                        $dele->execute();
+                    }
+
+                }else if (isset($_POST['dislike']) ) {
+                    $post_id = $_POST['post_id'];
+                    $type = false;
+                    $type2 = true;
+
+                    //check user already like
+                    $query = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
+                    $query->execute(array(':post_id'=> $post_id,
+                                            ':user_id'=> $uid,
+                                            ':islikes' => $type
+                        ));
+                    if ($query->rowCount() == 0) {
+
+                        //If the user does not dislike before then insert 0(dislike)
+                        $dislike = $conn->prepare("INSERT INTO likesdislikes(user_id, post_id, islikes) VALUES(:user_id, :post_id, :islikes)");
+                        $dislike->bindParam(':user_id', $uid);
+                        $dislike->bindParam(':post_id', $post_id);
+                        $dislike->bindParam(':islikes', $type);
+                        $dislike->execute();
+                    }
+
+                    //check user already like 
+                    $likeChack = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
+                    $likeChack->execute(array(':post_id'=> $post_id,
+                                            ':user_id'=> $uid,
+                                            ':islikes' => $type2
+                        ));
+                    if ($likeChack->rowCount() == 1) {
+
+                        //if user allready like then dislike
+                        $dele = $conn->prepare( "DELETE FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
+                        $dele->bindParam(":post_id",$post_id,PDO::PARAM_INT);
+                        $dele->bindParam(":user_id",$uid,PDO::PARAM_INT);
+                        $dele->bindParam(":islikes",$type2,PDO::PARAM_INT);
+                        $dele->execute();
+                    }
+
                 }
-            }
-        ?>
-            <form action="single.php" method="post">
+            ?>
+            <form action="single.php?id=<?php echo $id;?>" method="post">
             <input type="hidden" name="post_id" value="<?php echo $id; ?>">
                 <button class="like" type="submit" name="like">
                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
@@ -103,7 +171,7 @@
                 //Show comment Query
                 $cmmt = $conn->prepare("SELECT addpost.id, comnt.post_id, comnt.comment 
                 FROM comnt INNER JOIN addpost 
-                ON comnt.post_id = addpost.id where addpost.id = $id");
+                ON comnt.post_id = addpost.id where addpost.id = $uid");
                 $cmmt->execute();
                 while($row = $cmmt->fetch(PDO::FETCH_OBJ)){  
             ?>
