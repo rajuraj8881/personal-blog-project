@@ -1,6 +1,11 @@
 <?php
     include_once'connection.php';
-    $Result = $conn->prepare("DELETE FROM addpost WHERE id=". $_GET['id']);
+    session_start();
+     if (!$_SESSION['id']) {
+        header('location:login.php');
+    }
+    $uid = $_SESSION['id'];
+    $Result = $conn->prepare("DELETE FROM addpost WHERE user_id = $uid AND id=". $_GET['id']);
     $Result->execute();
 
     if ($Result) {
