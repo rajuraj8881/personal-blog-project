@@ -1,15 +1,6 @@
 <?php
     include_once'connection.php';
     session_start();
-    $id = NULL;
-    if(isset($_POST['id'])){
-        $id = $_POST['id'];
-    }
-
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];
-    }
-
     if (!$_SESSION['id']) {
         header('location:login.php');
     }
@@ -31,7 +22,7 @@
             <h1>Add Post</h1>
             <h1><a href="dashboard.php">Home</a></h1>
             <form action="process.php" method="post">
-            <input type="text" hidden="" name="user_id" value="<?php echo $id?>" ><br>
+                <input type="text" name="user_id" value="<?php echo $uid?>"><br>
                 <label>Title:</label><br>
                 <input type="text" name="post-title"><br>
                 <label>Description:</label><br>
