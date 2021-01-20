@@ -176,11 +176,11 @@
             <h5><span><i>(10)</i></span> Show All Comment</h5>
             <?php
                 //Show comment Query
-                $cmmt = $conn->prepare("SELECT addpost.id, comnt.post_id, comnt.comment 
-                FROM comnt INNER JOIN addpost 
-                ON comnt.post_id = addpost.id where addpost.id = $id");
+                $cmmt = $conn->prepare("SELECT users.id, users.name, comnt.comment 
+                                    FROM users INNER JOIN comnt ON users.id = comnt.user_id 
+                                    where post_id= $id");
                 $cmmt->execute();
-                while($row = $cmmt->fetch(PDO::FETCH_OBJ)){  
+                while($row = $cmmt->fetch(PDO::FETCH_OBJ)){
             ?>
                 <H3><?php echo $row->name; ?></H3>
                 <p><?php echo $row->comment; ?></p>
