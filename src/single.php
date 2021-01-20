@@ -178,13 +178,12 @@
                 //Show comment Query
                 $cmmt = $conn->prepare("SELECT addpost.id, comnt.post_id, comnt.comment 
                 FROM comnt INNER JOIN addpost 
-                ON comnt.post_id = addpost.id where addpost.id = $uid");
+                ON comnt.post_id = addpost.id where addpost.id = $id");
                 $cmmt->execute();
                 while($row = $cmmt->fetch(PDO::FETCH_OBJ)){  
             ?>
-
-                <p><?php echo  $row->comment; ?></p>
-
+                <H3><?php echo $row->name; ?></H3>
+                <p><?php echo $row->comment; ?></p>
             <?php
                 }
             ?>
