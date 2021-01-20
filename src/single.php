@@ -12,8 +12,6 @@
     if (!$_SESSION['id']) {
         header('location:login.php');
     }
-
-    //get session login user id 
     $uid = $_SESSION['id'];
 
     //show login user all post
@@ -201,6 +199,8 @@
                         <?php
                             foreach($users as $user):
                         ?>
+                        <input type="hidden" name="user_id" value="<?php echo $uid; ?>">
+
                         <input type="hidden" name="post_id" value="<?php echo $user->id; ?>">
                         <?php 
                             endforeach;
