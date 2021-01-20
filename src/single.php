@@ -9,6 +9,10 @@
     if(isset($_GET['id'])){
         $id = $_GET['id'];
     }
+    if (!$_SESSION['id']) {
+        header('location:login.php');
+    }
+    $uid = $_SESSION['id'];
 
     $result = $conn->prepare("SELECT * FROM addpost WHERE id='$id' ");
     $result->execute();
@@ -114,7 +118,7 @@
                         <?php
                             foreach($users as $user):
                         ?>
-                        <input type="hidden" name="user_id" value="<?php echo $user->user_id; ?>">
+                        <input type="hidden" name="user_id" value="<?php echo $uid; ?>">
                         <input type="hidden" name="post_id" value="<?php echo $user->id; ?>">
                         <?php 
                             endforeach;
