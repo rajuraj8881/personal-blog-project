@@ -101,8 +101,8 @@
                 $cmmt->execute();
                 while($row = $cmmt->fetch(PDO::FETCH_OBJ)){  
             ?>
-                <H3><?php echo  $row->name; ?></H3>
-                <p><?php echo  $row->comment; ?></p>
+                <H3><?php echo $row->name; ?></H3>
+                <p><?php echo $row->comment; ?></p>
 
             <?php
                 }
