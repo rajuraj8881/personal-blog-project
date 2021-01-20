@@ -9,7 +9,8 @@
     if(isset($_GET['id'])){
         $id = $_GET['id'];
     }
-    $result = $conn->prepare("SELECT * FROM addpost WHERE id='$id'");
+
+    $result = $conn->prepare("SELECT * FROM addpost WHERE id='$id' ");
     $result->execute();
     $users = $result->fetchAll(PDO::FETCH_OBJ);
 
@@ -84,13 +85,11 @@
             <h5><span><i>(10)</i></span> Show All Comment</h5>
             <?php
                 //Show comment Query
-                $cmmt = $conn->prepare("SELECT addpost.id, comnt.post_id, comnt.comment 
-                FROM comnt INNER JOIN addpost 
-                ON comnt.post_id = addpost.id where addpost.id = $id");
+                $cmmt = $conn->prepare("SELECT * FROM comnt where post_id= $id");
                 $cmmt->execute();
                 while($row = $cmmt->fetch(PDO::FETCH_OBJ)){  
             ?>
-
+                <H6><?php echo  $row->user_id; ?></H6>
                 <p><?php echo  $row->comment; ?></p>
 
             <?php
@@ -107,6 +106,7 @@
                         <?php
                             foreach($users as $user):
                         ?>
+                        <input type="hidden" name="user_id" value="<?php echo $user->user_id; ?>">
                         <input type="hidden" name="post_id" value="<?php echo $user->id; ?>">
                         <?php 
                             endforeach;

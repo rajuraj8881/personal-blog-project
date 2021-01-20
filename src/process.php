@@ -90,11 +90,13 @@
      //post comment add
      if (isset($_POST['comment'])) {
         $cmnt = $_POST['user-comment'];
+        $user_id = $_POST['user_id'];
         $post_id = $_POST['post_id'];
         
-        $cmmt = $conn->prepare("INSERT INTO comnt(post_id, comment) VALUES(:post_id, :comment)");
-        $cmmt->bindParam(':comment', $cmnt);
+        $cmmt = $conn->prepare("INSERT INTO comnt(user_id, post_id, comment) VALUES(:user_id, :post_id, :comment)");
+        $cmmt->bindParam(':user_id', $user_id);
         $cmmt->bindParam(':post_id', $post_id);
+        $cmmt->bindParam(':comment', $cmnt);
         $cmmt->execute();
     }
     
