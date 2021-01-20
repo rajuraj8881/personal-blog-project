@@ -29,8 +29,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simgle Post</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    
+    <link rel="stylesheet" href="css/style.css">
     <style>
         body {
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -64,15 +63,18 @@
     </style>
 </head>
 <body>
-    <div>
-        <?php
-            foreach($users as $user):
-        ?>
-        <h1 style="font-size:60px;"><?php echo $user->title; ?></h1>
-        <p><?php echo $user->description; ?></p>
-        <?php
-            endforeach;
-        ?>
+    <div class="container">
+    <?php include'lib/menu.php'?>
+        <div class="row">
+            <?php
+                foreach($users as $user):
+            ?>
+            <h1 style="font-size:60px;"><?php echo $user->title; ?></h1>
+            <p><?php echo $user->description; ?></p>
+            <?php
+                endforeach;
+            ?>
+        </div>
     </div>
     <div class="container">
         <div class="row">
@@ -90,7 +92,6 @@
                                             ':islikes' => $type
                         ));
                     if ($query->rowCount() == 0) {
-
                         //If before the user does not like  then insert 1(like)
                         $like = $conn->prepare("INSERT INTO likesdislikes(user_id, post_id, islikes) VALUES(:user_id, :post_id, :islikes)");
                         $like->bindParam(':user_id', $uid);
@@ -99,13 +100,9 @@
                         $like->execute();
                     }elseif ($query->rowCount() == 1){
                         //If before the user does not like  then insert 1(like)
-                        $like = $conn->prepare("INSERT INTO likesdislikes(user_id, post_id, islikes) VALUES(:user_id, :post_id, :islikes)");
-                        $like->bindParam(':user_id', $uid);
-                        $like->bindParam(':post_id', $post_id);
-                        $like->bindParam(':islikes', $type);
+                        $like = $conn->prepare("DELETE FROM likesdislikes WHERE user_id = $uid AND post_id = $id");
                         $like->execute();
                     }
-
 
                     //check user already dislike 
                     $unlikeChack = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
@@ -114,7 +111,6 @@
                                             ':islikes' => $type2
                         ));
                     if ($unlikeChack->rowCount() == 1) {
-
                         //if user allready dislike then like
                         $dele = $conn->prepare( "DELETE FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
                         $dele->bindParam(":post_id",$post_id,PDO::PARAM_INT);
@@ -135,13 +131,16 @@
                                             ':islikes' => $type
                         ));
                     if ($query->rowCount() == 0) {
-
                         //If the user does not dislike before then insert 0(dislike)
                         $dislike = $conn->prepare("INSERT INTO likesdislikes(user_id, post_id, islikes) VALUES(:user_id, :post_id, :islikes)");
                         $dislike->bindParam(':user_id', $uid);
                         $dislike->bindParam(':post_id', $post_id);
                         $dislike->bindParam(':islikes', $type);
                         $dislike->execute();
+                    }elseif ($query->rowCount() == 1){
+                        //If before the user does not like  then insert 1(like)
+                        $like = $conn->prepare("DELETE FROM likesdislikes WHERE user_id = $uid AND post_id = $id");
+                        $like->execute();
                     }
 
                     //check user already like 
@@ -151,7 +150,6 @@
                                             ':islikes' => $type2
                         ));
                     if ($likeChack->rowCount() == 1) {
-
                         //if user allready like then dislike
                         $dele = $conn->prepare( "DELETE FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
                         $dele->bindParam(":post_id",$post_id,PDO::PARAM_INT);
