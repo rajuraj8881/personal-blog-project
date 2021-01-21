@@ -166,19 +166,23 @@
                 <input type="hidden" name="post_id" value="<?php echo $id; ?>">
                 <button class="like" type="submit" name="like">
                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                    <?php
+                        $checkLike = $conn->prepare("SELECT COUNT(islikes) FROM likesdislikes WHERE post_id = $id AND islikes = 1");
+                        $checkLike->execute();
+                        $totaLike = $checkLike->fetchColumn();
+                        echo "<h4><span>".$totaLike."</span></h4>";
+                    ?>
                 </button>
                 <button class="dislike" type="submit" name="dislike">
                     <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                    <?php
+                        $checkdisLike = $conn->prepare("SELECT COUNT(islikes) FROM likesdislikes WHERE post_id = $id AND islikes = 0");
+                        $checkdisLike->execute();
+                        $totaDislike = $checkdisLike->fetchColumn();
+                        echo "<h4><span>".$totaDislike."</span></h4>";
+                    ?>
                 </button>
             </form>
-            <?php 
-                $checkLike = $conn->prepare("SELECT COUNT(islikes) FROM likesdislikes WHERE post_id = $id");
-                $checkLike->execute();
-                $totaLikeDislike = $checkLike->fetchColumn();
-                echo $totaLikeDislike;
-            ?>
-            <h4><span> 10 </span></h4>
-            <h4><span> 10 </span></h4>
         </div>
         <div class="comment">
             <h5><span><i>(10)</i></span> Show All Comment</h5>
