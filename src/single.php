@@ -185,7 +185,12 @@
             </form>
         </div>
         <div class="comment">
-            <h5><span><i>(10)</i></span> Show All Comment</h5>
+            <?php
+                $Comment = $conn->prepare("SELECT COUNT(DISTINCT user_id) FROM comnt WHERE post_id = $id");
+                $Comment->execute();
+                $totaComment = $Comment->fetchColumn();
+            ?>
+            <h5><span><i>(<?php echo $totaComment; ?>)</i></span> Show All Comment</h5>
             <?php
                 //Show comment Query
                 $cmmt = $conn->prepare("SELECT users.id, users.name, comnt.comment 
