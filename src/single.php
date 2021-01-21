@@ -171,6 +171,14 @@
                     <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                 </button>
             </form>
+            <?php 
+                $checkLike = $conn->prepare("SELECT COUNT(islikes) FROM likesdislikes WHERE post_id = $id");
+                $checkLike->execute();
+                $totaLikeDislike = $checkLike->fetchColumn();
+                echo $totaLikeDislike;
+            ?>
+            <h4><span> 10 </span></h4>
+            <h4><span> 10 </span></h4>
         </div>
         <div class="comment">
             <h5><span><i>(10)</i></span> Show All Comment</h5>
