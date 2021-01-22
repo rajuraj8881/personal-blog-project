@@ -10,18 +10,30 @@
     <?php include  'lib/header.php'; ?>
 
     <div class="container">
-    <?php include'lib/menu.php'?>
+        <?php include'lib/menu.php'?>
         <div class="row">
-            <h1>Add Post</h1>
-            <form action="process.php" method="post">
-                <input type="hidden" name="user_id" value="<?php echo $uid?>"><br>
-                <label>Title:</label><br>
-                <input type="text" name="post-title"><br>
-                <label>Description:</label><br>
-                <textarea rows="4" cols="50" name="post-description"></textarea>
-                <br><br>
-                <input type="submit" value="Submit" name="postSubmit">
-            </form>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h1><strong>Add Post</strong></h1>
+                <form action="process.php" method="post">
+                    <input type="hidden" name="user_id" value="<?php echo $uid?>"><br>
+                    <div class="form-group row">
+                        <label class="col-md-1 col-form-label"><strong>Title</strong></label>
+                        <div class="col-md-11">
+                            <input type="text" name="post-title" class="form-control"  placeholder="Title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1"><strong>Description</strong></label>
+                        <textarea name="post-description" class="form-control" id="exampleFormControlSelect1" rows="4" placeholder="Write Here"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" value="Submit" name="postSubmit" class="btn btn-success">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     
