@@ -7,7 +7,7 @@
     $uid = $_SESSION['id'];
     $uName = $_SESSION['name'];
 ?>
-    //include header file
+    <!-- include header file -->
     <?php include  'lib/header.php'; ?>
 
     <?php
@@ -47,5 +47,5 @@
         }else echo "<h1>Please login first.</h1>";
     ?>
 
-    //include footer file
+    <!-- include footer file -->
     <?php include  'lib/footer.php'; ?>

@@ -20,7 +20,7 @@
     $users = $result->fetchAll(PDO::FETCH_OBJ);
 
 ?>
-    //include header file
+    <!-- include header file -->
     <?php include  'lib/header.php'; ?>
 
     <div class="container">
@@ -190,5 +190,5 @@
         </div>
     </div>
 
-    //include footer file
+    <!-- include footer file -->
     <?php include  'lib/footer.php'; ?>

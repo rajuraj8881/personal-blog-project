@@ -9,7 +9,7 @@
     $result->execute();
     $users = $result->fetchAll(PDO::FETCH_OBJ);
 ?>  
-    //include header file
+    <!-- include header file -->
     <?php include  'lib/header.php'; ?>
 
     <?php
@@ -54,5 +54,5 @@
     <?php
         }else echo "<h1>Please login first.</h1>";
     ?>
-    //include footer file
+    <!--include footer file -->
     <?php include  'lib/footer.php'; ?>
