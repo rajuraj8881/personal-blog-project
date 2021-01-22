@@ -11,43 +11,47 @@
 ?>  
     <!-- include header file -->
     <?php include  'lib/header.php'; ?>
+    <!-- include menubar file -->
+    <?php include'lib/menu.php'?>
 
     <?php
         if (isset($_SESSION['email'])) {
     ?>
     <div class="container">
-    <?php include'lib/menu.php'?>
         <div class="row">
-            <table id="table-body">
-                <thead>
-                    <tr>
-                        <th class="table-header" width="20%">Id</th>
-                        <th class="table-header" width="20%">Title</th>
-                        <th class="table-header" width="20%">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        $counter = 0;
-                        foreach($users as $user):
-                    ?>
-                    <tr class="table-row">
-                        <td><?php echo ++$counter; ?></td>
-                        <td><a href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></td>
-                        <td>
-                            <a class="ajax-action-links" href='edit.php?id=<?php echo $user->id; ?>'>
-                                <img src="icon/edit.png" title="Edit" />
-                            </a>
-                            <a class="ajax-action-links" href='delete.php?id=<?php echo $user->id; ?>'>
-                                <img src="icon/delete.png" title="Delete" />
-                            </a>
-                        </td>
-                    </tr>
-                    <?php
-                        endforeach;
-                    ?>
-                </tbody>
-            </table>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th scope="col">Id</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $counter = 0;
+                            foreach($users as $user):
+                        ?>
+                        <tr>
+                            <th scope="row"><?php echo ++$counter; ?></th>
+                            <td><a class="nounderline" href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></td>
+                            <td>
+                                <a class="ajax-action-links" href='edit.php?id=<?php echo $user->id; ?>'>
+                                    <img src="icon/edit.png" title="Edit" />
+                                </a>
+                                <a class="ajax-action-links" href='delete.php?id=<?php echo $user->id; ?>'>
+                                    <img src="icon/delete.png" title="Delete" />
+                                </a>
+                            </td>
+                        </tr>
+                        <?php
+                            endforeach;
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
  
