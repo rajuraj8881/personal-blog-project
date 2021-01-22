@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                         <tr class="table-secondary">
                             <th scope="col">Id</th>
@@ -33,7 +33,7 @@
                             $counter = 0;
                             foreach($users as $user):
                         ?>
-                        <tr class="table-primary">
+                        <tr>
                             <th scope="row"><?php echo ++$counter; ?></th>
                             <td><a class="nounderline" href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></td>
                             <td>

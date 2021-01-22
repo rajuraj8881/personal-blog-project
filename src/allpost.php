@@ -33,7 +33,7 @@
                             $counter = 0;
                             foreach($users as $user):
                         ?>
-                        <tr class="table-primary">
+                        <tr>
                             <th scope="row"><?php echo ++$counter; ?></th>
                             <td><a class="nounderline" href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></td>
                         </tr>

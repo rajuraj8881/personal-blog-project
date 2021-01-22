@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <button type="submit" value="Submit" name="postSubmit" class="btn btn-success">Update</button>
+                            <button type="submit" value="Submit" name="postSubmit" class="btn btn-success">Add Post</button>
                         </div>
                     </div>
                 </form>
