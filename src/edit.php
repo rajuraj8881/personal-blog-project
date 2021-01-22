@@ -3,9 +3,10 @@
 ?>
     <!-- include header file -->
     <?php include  'lib/header.php'; ?>
-    
+    <?php include'lib/menu.php'?>  
+    <!-- include menubar file -->
+     
     <div class="container">
-    <?php include'lib/menu.php'?>
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">

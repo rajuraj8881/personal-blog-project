@@ -11,12 +11,13 @@
 ?>  
     <!-- include header file -->
     <?php include  'lib/header.php'; ?>
+    <!-- include menubar file -->
+    <?php include'lib/menu.php'?>
 
     <?php
         if (isset($_SESSION['email'])) {
     ?>
     <div class="container">
-    <?php include'lib/menu.php'?>
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
