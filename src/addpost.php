@@ -6,21 +6,13 @@
     }
     $uid = $_SESSION['id'];
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Post</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+    <!-- include header file -->
+    <?php include  'lib/header.php'; ?>
 
     <div class="container">
     <?php include'lib/menu.php'?>
         <div class="row">
             <h1>Add Post</h1>
-            <h1><a href="dashboard.php">Home</a></h1>
             <form action="process.php" method="post">
                 <input type="hidden" name="user_id" value="<?php echo $uid?>"><br>
                 <label>Title:</label><br>
@@ -32,5 +24,6 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+    
+    <!-- include footer file -->
+    <?php include  'lib/footer.php'; ?>

@@ -8,17 +8,10 @@
     $result = $conn->prepare("SELECT * FROM addpost where user_id=$uid");
     $result->execute();
     $users = $result->fetchAll(PDO::FETCH_OBJ);
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
+?>  
+    <!-- include header file -->
+    <?php include  'lib/header.php'; ?>
 
-</head>
-<body>
     <?php
         if (isset($_SESSION['email'])) {
     ?>
@@ -61,5 +54,5 @@
     <?php
         }else echo "<h1>Please login first.</h1>";
     ?>
-</body>
-</html>
+    <!--include footer file -->
+    <?php include  'lib/footer.php'; ?>
