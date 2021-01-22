@@ -1,19 +1,13 @@
 <?php 
     include_once'connection.php';
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit</title>
-</head>
-<body>
+    //include header file
+    <?php include  'lib/header.php'; ?>
+    
     <div class="container">
+    <?php include'lib/menu.php'?>
         <div class="row">
             <h1>Add Post</h1>
-            <h1><a href="dashboard.php">Home</a></h1>
             <form action="process.php" method="post">
                     <?php
                         $id = NULL;
@@ -46,5 +40,6 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+
+    //include footer file
+    <?php include  'lib/footer.php'; ?>

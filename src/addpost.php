@@ -6,15 +6,8 @@
     }
     $uid = $_SESSION['id'];
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Post</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+    //include header file
+    <?php include  'lib/header.php'; ?>
 
     <div class="container">
     <?php include'lib/menu.php'?>
@@ -32,5 +25,6 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+    
+    //include footer file
+    <?php include  'lib/footer.php'; ?>
