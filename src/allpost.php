@@ -16,30 +16,33 @@
     <div class="container">
     <?php include'lib/menu.php'?>
         <div class="row">
-            <table id="table-body">
-                <thead>
-                    <tr>
-                        <th class="table-header" width="20%">Id</th>
-                        <th class="table-header" width="20%">Title</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        $result = $conn->prepare("SELECT * FROM addpost");
-                        $result->execute();
-                        $users = $result->fetchAll(PDO::FETCH_OBJ);
-                        $counter = 0;
-                        foreach($users as $user):
-                    ?>
-                    <tr class="table-row">
-                        <td><?php echo ++$counter; ?></td>
-                        <td><a href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></td>
-                    </tr>
-                    <?php
-                        endforeach;
-                    ?>
-                 </tbody> <!--End table body -->
-            </table>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th scope="col">Id</th>
+                            <th scope="col">Title</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $result = $conn->prepare("SELECT * FROM addpost");
+                            $result->execute();
+                            $users = $result->fetchAll(PDO::FETCH_OBJ);
+                            $counter = 0;
+                            foreach($users as $user):
+                        ?>
+                        <tr class="table-primary">
+                            <th scope="row"><?php echo ++$counter; ?></th>
+                            <td><a class="nounderline" href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></td>
+                        </tr>
+                        <?php
+                            endforeach;
+                        ?>
+                    </tbody> <!--End table body -->
+                </table>
+            </div>
         </div>
     </div>
     
