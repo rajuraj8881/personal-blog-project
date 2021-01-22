@@ -28,7 +28,7 @@
                     </thead>
                     <tbody>
                         <?php
-                            $result = $conn->prepare("SELECT * FROM addpost");
+                            $result = $conn->prepare("SELECT * FROM addpost ORDER BY id DESC");
                             $result->execute();
                             $users = $result->fetchAll(PDO::FETCH_OBJ);
                             $counter = 0;
