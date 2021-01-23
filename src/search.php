@@ -35,7 +35,7 @@
                                             echo ++$counter;
                                         echo '</th>';
                                         echo "<td>";
-                                            echo '<a class="nounderline" href="single.php?id=<?php echo $user->id; ?>">';
+                                            echo '<a class="nounderline" href="single.php?id='.$row['id'].'">';
                                                 echo $row['title'];
                                             echo '</a>';
                                         echo "</td>";
