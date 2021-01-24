@@ -36,7 +36,6 @@
                                     $page=1; 
                                 };
                             $record_index= ($page-1) * $limit;
-
                             $result = $conn->prepare("SELECT * FROM addpost ORDER BY id DESC LIMIT $record_index, $limit");
                             $result->execute();
                             $users = $result->fetchAll(PDO::FETCH_OBJ);
@@ -57,20 +56,21 @@
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                        <nav aria-label="">
-                            <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
+                        <nav aria-label="...">
+                            <?php
+                                $nextPag = $conn->prepare("SELECT * FROM addpost");
+                                $nextPag->execute();
+                                $rows = $nextPag->fetchAll(PDO::FETCH_ASSOC);
+                                // $totalRecord = $row[0];
+                                $totalPage = ceil(count($rows) / $limit);
+                                echo "<ul class='pagination'>";
+                                echo "<li class='page-item'><a class='nounderline' href='allpost.php?page=".($page-1)."' class='button'><span class='page-link'>Previous</span></a></li>"; 
+                                    for ($i=1; $i<=$totalPage; $i++) {
+                                            echo "<li class='page-item'><a class='page-link' href='allpost.php?page=".$i."' tabindex='-1'>".$i."</a></li>";
+                                    }
+                                echo "<li><a class='nounderline' href='allpost.php?page=".($page+1)."' class='button'><span class='page-link'>NEXT<span></a></li>";
+                                echo "</ul>";
+                            ?>
                         </nav>
                     </div>
                 </div>
