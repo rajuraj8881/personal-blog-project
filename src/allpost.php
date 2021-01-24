@@ -63,12 +63,26 @@
                                 $rows = $nextPag->fetchAll(PDO::FETCH_ASSOC);
                                 // $totalRecord = $row[0];
                                 $totalPage = ceil(count($rows) / $limit);
+
+                                if($page > $totalPage){
+                                    // exit('Your Message');
+                                    header('locaion: allpost.php');
+                                }
+
                                 echo "<ul class='pagination'>";
-                                echo "<li class='page-item'><a class='nounderline' href='allpost.php?page=".($page-1)."' class='button'><span class='page-link'>Previous</span></a></li>"; 
+                                    echo "<li class='page-item'>";
+                                        if($page > 1){
+                                        echo "<a class='nounderline' href='allpost.php?page=".($page-1)."' class='button'><span class='page-link'>Previous</span></a>";
+                                        }
+                                    echo "</li>"; 
                                     for ($i=1; $i<=$totalPage; $i++) {
-                                            echo "<li class='page-item'><a class='page-link' href='allpost.php?page=".$i."' tabindex='-1'>".$i."</a></li>";
+                                        echo "<li class='page-item'><a class='page-link' href='allpost.php?page=".$i."' tabindex='-1'>".$i."</a></li>";
                                     }
-                                echo "<li><a class='nounderline' href='allpost.php?page=".($page+1)."' class='button'><span class='page-link'>NEXT<span></a></li>";
+                                    echo "<li>";
+                                    if($page < $totalPage){
+                                        echo "<a class='nounderline' href='allpost.php?page=".($page+1)."' class='button'><span class='page-link'>NEXT<span></a>";
+                                    }
+                                    echo "</li>";
                                 echo "</ul>";
                             ?>
                         </nav>
