@@ -25,7 +25,7 @@
                         <?php
                             if(isset($_POST['search_key'])):
                                 $keyword= $_POST['search'];
-                                $searchResult=$conn->prepare("SELECT * FROM addpost WHERE title OR description LIKE :keyword");
+                                $searchResult=$conn->prepare("SELECT * FROM addpost WHERE title like :keyword OR description LIKE :keyword");
                                 $searchResult->bindValue(':keyword','%'.$keyword.'%');
                                 $searchResult->execute();
                                 $counter = 0;
