@@ -28,7 +28,15 @@
                     </thead>
                     <tbody>
                         <?php
-                            $result = $conn->prepare("SELECT * FROM addpost ORDER BY id DESC");
+                            $limit = 10; 
+                                if (isset($_GET["page"] )){
+                                    $page  = $_GET["page"]; 
+                                } 
+                                else{
+                                    $page=1; 
+                                };
+                            $record_index= ($page-1) * $limit;
+                            $result = $conn->prepare("SELECT * FROM addpost ORDER BY id DESC LIMIT $record_index, $limit");
                             $result->execute();
                             $users = $result->fetchAll(PDO::FETCH_OBJ);
                             $counter = 0;
@@ -43,6 +51,43 @@
                         ?>
                     </tbody> <!--End table body -->
                 </table>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <nav aria-label="...">
+                            <?php
+                                $nextPag = $conn->prepare("SELECT * FROM addpost");
+                                $nextPag->execute();
+                                $rows = $nextPag->fetchAll(PDO::FETCH_ASSOC);
+                                // $totalRecord = $row[0];
+                                $totalPage = ceil(count($rows) / $limit);
+
+                                if($page > $totalPage){
+                                    // exit('Your Message');
+                                    header('locaion: allpost.php');
+                                }
+
+                                echo "<ul class='pagination'>";
+                                    echo "<li class='page-item'>";
+                                        if($page > 1){
+                                        echo "<a class='nounderline' href='allpost.php?page=".($page-1)."' class='button'><span class='page-link'>Previous</span></a>";
+                                        }
+                                    echo "</li>"; 
+                                    for ($i=1; $i<=$totalPage; $i++) {
+                                        echo "<li class='page-item'><a class='page-link' href='allpost.php?page=".$i."' tabindex='-1'>".$i."</a></li>";
+                                    }
+                                    echo "<li>";
+                                    if($page < $totalPage){
+                                        echo "<a class='nounderline' href='allpost.php?page=".($page+1)."' class='button'><span class='page-link'>NEXT<span></a>";
+                                    }
+                                    echo "</li>";
+                                echo "</ul>";
+                            ?>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
