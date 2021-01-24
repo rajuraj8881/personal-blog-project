@@ -39,11 +39,15 @@
                             $result = $conn->prepare("SELECT * FROM addpost ORDER BY id DESC LIMIT $record_index, $limit");
                             $result->execute();
                             $users = $result->fetchAll(PDO::FETCH_OBJ);
-                            $counter = 0;
+                            $i=$record_index;
                             foreach($users as $user):
                         ?>
                         <tr>
-                            <th scope="row"><?php echo ++$counter; ?></th>
+                        <?php
+                            echo '<th scope="row">';
+                                 echo ++$i;
+                            echo '</th>';
+                        ?>
                             <td><a class="nounderline" href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></td>
                         </tr>
                         <?php
@@ -65,8 +69,7 @@
                                 $totalPage = ceil(count($rows) / $limit);
 
                                 if($page > $totalPage){
-                                    // exit('Your Message');
-                                    header('locaion: allpost.php');
+                                    exit('No page are found');
                                 }
 
                                 echo "<ul class='pagination'>";
