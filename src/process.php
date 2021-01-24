@@ -55,7 +55,7 @@
 
     //Add post
     if (isset($_POST['postSubmit'])) {
-        $user_id = $_POST['user_id'];
+        $user_id = $_SESSION['id'];
         $title = $_POST['post-title'];
         $description = $_POST['post-description'];
      
@@ -90,7 +90,7 @@
      //post comment add
      if (isset($_POST['comment'])) {
         $cmnt = $_POST['user-comment'];
-        $user_id = $_POST['user_id'];
+        $user_id = $_SESSION["id"];
         $post_id = $_POST['post_id'];
         
         $cmmt = $conn->prepare("INSERT INTO comnt(user_id, post_id, comment) VALUES(:user_id, :post_id, :comment)");

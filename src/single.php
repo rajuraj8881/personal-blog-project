@@ -166,11 +166,7 @@
                         <?php
                             foreach($users as $user):
                         ?>
-                        <div class="form-group">
-                            <div class="col-md-11">
-                                <input type="hidden" name="user_id" class="form-control" value="<?php echo $uid; ?>">
-                            </div>
-                        </div>
+    
                         <div class="form-group">
                             <div class="col-md-11">
                                 <input type="hidden" name="post_id" class="form-control" value="<?php echo $user->id; ?>">

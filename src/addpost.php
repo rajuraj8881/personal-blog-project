@@ -17,7 +17,7 @@
             <div class="col-md-8">
                 <h1><strong>Add Post</strong></h1>
                 <form action="process.php" method="post">
-                    <input type="hidden" name="user_id" value="<?php echo $uid?>"><br>
+                    
                     <div class="form-group row">
                         <label class="col-md-1 col-form-label"><strong>Title</strong></label>
                         <div class="col-md-11">
