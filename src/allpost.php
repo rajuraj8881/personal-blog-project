@@ -69,7 +69,7 @@
                                 $totalPage = ceil(count($rows) / $limit);
 
                                 if($page > $totalPage){
-                                    exit('No page are found');
+                                    exit('No Data Found');
                                 }
 
                                 echo "<ul class='pagination'>";
