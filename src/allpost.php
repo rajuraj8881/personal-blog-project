@@ -28,7 +28,7 @@
                     </thead>
                     <tbody>
                         <?php
-                            $limit = 10; 
+                            $limit = 1; 
                                 if (isset($_GET["page"] )){
                                     $page  = $_GET["page"]; 
                                 } 
@@ -78,8 +78,16 @@
                                         echo "<a class='nounderline' href='allpost.php?page=".($page-1)."' class='button'><span class='page-link'>Previous</span></a>";
                                         }
                                     echo "</li>"; 
-                                    for ($i=1; $i<=$totalPage; $i++) {
-                                        echo "<li class='page-item'><a class='page-link' href='allpost.php?page=".$i."' tabindex='-1'>".$i."</a></li>";
+                                    $skipped = false;
+                                    for ($i = 1; $i <= $totalPage; $i++)  {
+                                        if ($i < 3 || $totalPage- $i < 1 || abs($page - $i) < 3) {
+                                            if ($skipped)
+                                                echo '<span> ... </span>';
+                                            $skipped = false;
+                                            echo "<li class='page-item'><a class='page-link' href='allpost.php?page=".$i."' tabindex='-1'>".$i."</a></li>";
+                                        } else {
+                                            $skipped = true;
+                                        }
                                     }
                                     echo "<li>";
                                     if($page < $totalPage){
