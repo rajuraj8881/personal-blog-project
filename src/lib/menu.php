@@ -6,6 +6,7 @@
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="dashboard.php">My Post</a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="allpost.php">All Post</a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="addpost.php">Add Post</a></li>
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="profile.php">Profile</a></li>
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="logout.php">Logout</a></li>
                 </ul>
             </div>
