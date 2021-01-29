@@ -1,3 +1,23 @@
+<?php
+    include_once'connection.php';
+
+    if(isset($_FILES['image'])){
+        echo "<pre>";
+        print_r($_FILES);
+        echo "</pre>";
+
+        $file_name = $_FILES['image']['name'];
+        $file_type = $_FILES['image']['type'];
+        $file_tmp = $_FILES['image']['tmp_name'];
+        $file_error = $_FILES['image']['error'];
+        $file_size = $_FILES['image']['size'];
+        
+        move_uploaded_file($file_tmp, "uploads/". $file_name);
+    }
+
+
+?>
+
 <!-- include header file -->
 <?php include  'lib/header.php'; ?>
     <!-- include menubar file -->
@@ -8,15 +28,19 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <h1><strong>Profile</strong></h1>
-                <form action="/action_page.php">
+                <form action="profile.php" method="post" enctype="multipart/form-data">
                     <div class="profile-thumb-block">
                         <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="profile-image" class="profile"/>
                     </div>
                     <div class="form-group">
                         <div class="col-md-6">
-                            <input type="file" class="form-control-file" id="myFile" name="filename">
+                            <input type="file" name="image" class="form-control-file" id="myFile" >
+                            <button type="submit" class="btn btn-success">Upload</button>
                         </div>
                     </div>
+                </form>
+
+                <form>
                     <div class="form-group">
                         <label class="col-md-2 col-form-label">Name</label>
                         <div class="col-md-4">
@@ -37,7 +61,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <button type="submit" value="Submit" name="profileSubmit" class="btn btn-success">Save</button>
+                            <button type="submit" value="Submit" name="profileDet" class="btn btn-success">Update</button>
                         </div>
                     </div>
                 </form>
