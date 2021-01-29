@@ -2,21 +2,41 @@
     include_once'connection.php';
 
     if(isset($_POST['subImages'])){
-        $target = "uploads/".basename($_FILES['image']['name']);
+        $_FILES['image']['name'];
 
         $file_name = $_FILES['image']['name'];
-        // $file_type = $_FILES['image']['type'];
-        // $file_tmp = $_FILES['image']['tmp_name'];
-        // $file_error = $_FILES['image']['error'];
-        // $file_size = $_FILES['image']['size'];
+        $file_tmp = $_FILES['image']['tmp_name'];
+        $file_error = $_FILES['image']['error'];
+        $file_size = $_FILES['image']['size'];
+        $file_type = $_FILES['image']['type'];
         
-        $imgIns = $conn->prepare("INSERT INTO img (imgs) VALUES(:images)");
-        $imgIns->bindParam(':images', $file_name);
-        $imgIns->execute();
-        if(move_uploaded_file($_FILES['image']['tmp_name'], $target)){
-            echo"Success";
+        $fileExt = explode('.', $file_name);
+        $fileActulExt = strtolower(end($fileExt));
+
+        $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+
+        if (in_array($fileActulExt, $allowed)) {
+            if ($file_error === 0) {
+                if ($file_size < 5000000) {
+                    $file_name_new = uniqid('', true).".".$fileActulExt;
+                    $fileDestination = "uploads/".$file_name_new;
+
+                    if (move_uploaded_file($file_tmp, $fileDestination)) {
+                        $imgIns = $conn->prepare("INSERT INTO img (imgs) VALUES(:images)");
+                        $imgIns->bindParam(':images', $file_name);
+                        $imgIns->execute();
+                        header('location: profile.php?done');
+                    }else{
+                        echo "Your directory Missing!";
+                    }  
+                }else{
+                    echo "Your file is too large!";
+                }
+            }else{
+                echo "There was an error uploading your file!";
+            }
         }else{
-            echo "Wrong";
+            echo "You cannot upload files of this type!";
         }
     }
 
@@ -40,6 +60,10 @@
                     <div class="form-group">
                         <div class="col-md-6">
                             <input type="file" name="image" class="form-control-file" id="myFile" require>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
                             <button type="submit" name="subImages" class="btn btn-success">Upload</button>
                         </div>
                     </div>
