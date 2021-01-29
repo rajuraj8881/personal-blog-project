@@ -12,7 +12,11 @@
         $file_error = $_FILES['image']['error'];
         $file_size = $_FILES['image']['size'];
         
-        move_uploaded_file($file_tmp, "uploads/". $file_name);
+        if(move_uploaded_file($file_tmp, "uploads/". $file_name)){
+            echo "<p>Successfully Uploaded.</p>";
+        }else{
+            echo "Wrong";
+        }
     }
 
 
