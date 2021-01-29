@@ -1,19 +1,20 @@
 <?php
     include_once'connection.php';
 
-    if(isset($_FILES['image'])){
-        echo "<pre>";
-        print_r($_FILES);
-        echo "</pre>";
+    if(isset($_POST['subImages'])){
+        $target = "uploads/".basename($_FILES['image']['name']);
 
         $file_name = $_FILES['image']['name'];
-        $file_type = $_FILES['image']['type'];
-        $file_tmp = $_FILES['image']['tmp_name'];
-        $file_error = $_FILES['image']['error'];
-        $file_size = $_FILES['image']['size'];
+        // $file_type = $_FILES['image']['type'];
+        // $file_tmp = $_FILES['image']['tmp_name'];
+        // $file_error = $_FILES['image']['error'];
+        // $file_size = $_FILES['image']['size'];
         
-        if(move_uploaded_file($file_tmp, "uploads/". $file_name)){
-            echo "<p>Successfully Uploaded.</p>";
+        $imgIns = $conn->prepare("INSERT INTO img (imgs) VALUES(:images)");
+        $imgIns->bindParam(':images', $file_name);
+        $imgIns->execute();
+        if(move_uploaded_file($_FILES['image']['tmp_name'], $target)){
+            echo"Success";
         }else{
             echo "Wrong";
         }
@@ -38,8 +39,8 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-6">
-                            <input type="file" name="image" class="form-control-file" id="myFile" >
-                            <button type="submit" class="btn btn-success">Upload</button>
+                            <input type="file" name="image" class="form-control-file" id="myFile" require>
+                            <button type="submit" name="subImages" class="btn btn-success">Upload</button>
                         </div>
                     </div>
                 </form>
