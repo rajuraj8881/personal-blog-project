@@ -80,9 +80,8 @@
                                     echo "</li>"; 
                                     $skipped = false;
                                     for ($i = 1; $i <= $totalPage; $i++)  {
-                                        if ($i < 3 || $totalPage- $i < 1 || abs($page - $i) < 3) {
+                                        if ($i < 3 || $totalPage- $i < 2 || abs($page - $i) < 3) {
                                             if ($skipped)
-                                                echo '<span> ... </span>';
                                             $skipped = false;
                                             echo "<li class='page-item'><a class='page-link' href='allpost.php?page=".$i."' tabindex='-1'>".$i."</a></li>";
                                         } else {
