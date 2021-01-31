@@ -77,16 +77,10 @@
                                         if($page > 1){
                                         echo "<a class='nounderline' href='allpost.php?page=".($page-1)."' class='button'><span class='page-link'>Previous</span></a>";
                                         }
-                                    echo "</li>"; 
-                                    $skipped = false;
+                                    echo "</li>";
                                     for ($i = 1; $i <= $totalPage; $i++)  {
                                         if ($i < 3 || $totalPage- $i < 1 || abs($page - $i) < 3) {
-                                            if ($skipped)
-                                                echo '<span> ... </span>';
-                                            $skipped = false;
                                             echo "<li class='page-item'><a class='page-link' href='allpost.php?page=".$i."' tabindex='-1'>".$i."</a></li>";
-                                        } else {
-                                            $skipped = true;
                                         }
                                     }
                                     echo "<li>";
