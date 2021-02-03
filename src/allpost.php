@@ -28,7 +28,7 @@
                     </thead>
                     <tbody>
                         <?php
-                            $limit = 1; 
+                            $limit = 5; 
                                 if (isset($_GET["page"] )){
                                     $page  = $_GET["page"]; 
                                 } 
