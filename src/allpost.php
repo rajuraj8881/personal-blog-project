@@ -1,60 +1,89 @@
-<?php
-    include_once'connection.php';
-    session_start();
-    if (!$_SESSION['id']) {
-        header('location:login.php');
-    }
-    $uid = $_SESSION['id'];
-    $uName = $_SESSION['name'];
-?>
-    <!-- include header file -->
-    <?php include  'lib/header.php'; ?>
-    <!-- include menubar file -->
-    <?php include'lib/menu.php'?>
+    <?php 
+        //database connection
+        include_once'connection.php';
+        // include header file
+        include  'lib/header.php';
+        // include menubar file 
+        include'lib/menu.php';
 
+        // session start 
+        session_start();
+        if (!$_SESSION['id']) {
+            header('location:login.php');
+        }
+        //get login user id and name
+        $uid = $_SESSION['id'];
+        $uName = $_SESSION['name'];
+
+        $limit = 5; 
+            if (isset($_GET["page"] )){
+                $page  = $_GET["page"]; 
+            } 
+            else{
+                $page=1; 
+            };
+        $record_index= ($page-1) * $limit;
+        $result = $conn->prepare("SELECT * FROM addpost ORDER BY id DESC LIMIT $record_index, $limit");
+        $result->execute();
+        $users = $result->fetchAll(PDO::FETCH_OBJ);
+    ?>
+   
     <?php
         if (isset($_SESSION['email'])) {
     ?>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <table class="table table-hover">
-                    <thead>
-                        <tr class="table-secondary">
-                            <th scope="col">Id</th>
-                            <th scope="col">Title</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            $limit = 5; 
-                                if (isset($_GET["page"] )){
-                                    $page  = $_GET["page"]; 
-                                } 
-                                else{
-                                    $page=1; 
-                                };
-                            $record_index= ($page-1) * $limit;
-                            $result = $conn->prepare("SELECT * FROM addpost ORDER BY id DESC LIMIT $record_index, $limit");
-                            $result->execute();
-                            $users = $result->fetchAll(PDO::FETCH_OBJ);
-                            $i=$record_index;
-                            foreach($users as $user):
-                        ?>
-                        <tr>
-                        <?php
-                            echo '<th scope="row">';
-                                 echo ++$i;
-                            echo '</th>';
-                        ?>
-                            <td><a class="nounderline" href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></td>
-                        </tr>
-                        <?php
-                            endforeach;
-                        ?>
-                    </tbody> <!--End table body -->
-                </table>
+    <div class="container-flued">
+        <div class="row mx-0">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6 bg-transparent"> 
+                <div class="row my-2 p-2">
+                    <?php 
+                        foreach($users as $user):
+                    ?>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 mt-4">
+                                <img src="images/profile.png" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
+                                <strong class="ms-2 mt-3 text-info"><?php echo $user->user_id;?></strong><span class="ms-3 text-muted">25 min ago.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-11 mt-2">
+                                
+                                <h5><?php echo $user->title; ?></h5>
+                                <p class="lead mb-0"><?php echo $user->description; ?></p>  
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row mt-5">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">Like <span>20</span></div>
+                            <div class="col-md-2">dislike <span>20</span></div>
+                            <div class="col-md-4 ms-2">comment <span>20</span></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row mt-3">
+                            <div class="col-md-1 mt-2">
+                                <img src="images/comment.jpg" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
+                            </div>
+                            <div class="col-md-11 mt-3">
+                                <input type="text" name="comment" class="form-control" placeholder="Write Comments">  
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                        endforeach;
+                    ?>
+
+                </div>
+            </div>
+            <div class="col-md-3">
             </div>
             <div class="container">
                 <div class="row">
