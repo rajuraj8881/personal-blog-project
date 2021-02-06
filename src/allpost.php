@@ -23,7 +23,7 @@
                 $page=1; 
             };
         $record_index= ($page-1) * $limit;
-        $result = $conn->prepare("SELECT * FROM addpost ORDER BY id DESC LIMIT $record_index, $limit");
+        $result = $conn->prepare("SELECT * FROM addpost INNER JOIN users ON users.id = addpost.user_id ORDER BY addpost.id DESC LIMIT $record_index, $limit");
         $result->execute();
         $users = $result->fetchAll(PDO::FETCH_OBJ);
     ?>
@@ -44,7 +44,7 @@
                         <div class="row">
                             <div class="col-md-6 mt-4">
                                 <img src="images/profile.png" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
-                                <strong class="ms-2 mt-3 text-info"><?php echo $user->user_id;?></strong><span class="ms-3 text-muted">25 min ago.</span>
+                                <strong class="ms-2 mt-3 text-info"><?php echo $user->name;?></strong><span class="ms-3 text-muted">25 min ago.</span>
                             </div>
                         </div>
                     </div>
