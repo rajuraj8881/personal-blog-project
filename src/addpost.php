@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <button type="submit" name="subImages" class="btn btn-transparent addpostcolor">Add Media</button>
+                                        <input type="file" name="image" class="form-control-file" id="myFile" require>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
