@@ -23,7 +23,7 @@
                 $page=1; 
             };
         $record_index= ($page-1) * $limit;
-        $result = $conn->prepare("SELECT * FROM addpost INNER JOIN users ON users.id = addpost.user_id ORDER BY addpost.id DESC LIMIT $record_index, $limit");
+        $result = $conn->prepare("SELECT users.id, users.name, addpost.id, addpost.title, addpost.description FROM users INNER JOIN addpost ON users.id = addpost.user_id ORDER BY addpost.id DESC LIMIT $record_index, $limit");
         $result->execute();
         $users = $result->fetchAll(PDO::FETCH_OBJ);
     ?>
@@ -52,7 +52,7 @@
                         <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-11 mt-2">
-                                <h5><?php echo $user->title; ?></h5>
+                                <h5><a class="nounderline" href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></h5>
                                 <p class="lead mb-0"><?php echo $user->description; ?></p>
                             </div>
                         </div>
