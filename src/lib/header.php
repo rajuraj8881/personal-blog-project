@@ -52,6 +52,9 @@
             height: 50px;
             border-radius: 50px;
         }
+        .addpostcolor{
+            background-color: #FAFCF0;
+        }
     </style>
 
 </head>

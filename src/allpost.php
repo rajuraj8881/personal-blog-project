@@ -44,7 +44,7 @@
                         <div class="row">
                             <div class="col-md-6 mt-4">
                                 <img src="images/profile.png" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
-                                <strong class="ms-2 mt-3 text-info"><?php echo $user->name;?></strong><span class="ms-3 text-muted">25 min ago.</span>
+                                <strong class="ms-0 mt-3 text-info"><?php echo $user->name;?></strong><span class="ms-3 text-muted">25 min ago.</span>
                             </div>
                         </div>
                     </div>
@@ -52,10 +52,8 @@
                         <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-11 mt-2">
-                                
                                 <h5><?php echo $user->title; ?></h5>
-                                <p class="lead mb-0"><?php echo $user->description; ?></p>  
-                                
+                                <p class="lead mb-0"><?php echo $user->description; ?></p>
                             </div>
                         </div>
                     </div>

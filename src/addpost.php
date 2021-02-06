@@ -11,30 +11,45 @@
     <!-- include menubar file -->
     <?php include'lib/menu.php'?>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <h1><strong>Add Post</strong></h1>
-                <form action="process.php" method="post">
-                    
-                    <div class="form-group row">
-                        <label class="col-md-1 col-form-label"><strong>Title</strong></label>
-                        <div class="col-md-11">
-                            <input type="text" name="post-title" class="form-control"  placeholder="Title">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1"><strong>Description</strong></label>
-                        <textarea name="post-description" class="form-control" id="exampleFormControlSelect1" rows="4" placeholder="Write Here"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <button type="submit" value="Submit" name="postSubmit" class="btn btn-success">Add Post</button>
-                        </div>
-                    </div>
-                </form>
+    <div class="container-flued">
+        <div class="row mx-5">
+            <div class="col-md-12">
+                <h1>Add New Post</h1>
             </div>
+            <form action="process.php" method="post">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" name="post-title" class="form-control"  placeholder="Enter title here">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="file" name="image" class="form-control-file" id="myFile" require>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea name="post-description" class="form-control" id="exampleFormControlSelect1" rows="8" placeholder="Write Here"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button type="submit" value="Submit" name="postSubmit" class="btn btn-primary">Add Post</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>  
         </div>
     </div>
     
