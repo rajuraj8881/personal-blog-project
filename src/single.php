@@ -1,5 +1,10 @@
 <?php
-    include_once'connection.php';
+    include_once 'connection.php';
+    // include header file
+    include  'lib/header.php';
+    // include menubar file
+    include 'lib/menu.php';
+
     session_start();
     $id = NULL;
     if(isset($_POST['id'])){
@@ -15,208 +20,47 @@
     $uid = $_SESSION['id'];
 
     //show login user all post
-    $result = $conn->prepare("SELECT * FROM addpost WHERE id='$id'");
+    $result = $conn->prepare("SELECT users.name, addpost.id, addpost.title, addpost.description FROM users INNER JOIN addpost ON users.id = addpost.user_id WHERE addpost.id='$id'");
     $result->execute();
     $users = $result->fetchAll(PDO::FETCH_OBJ);
-
 ?>
-    <!-- include header file -->
-    <?php include  'lib/header.php'; ?>
-    <!-- include menubar file -->
-    <?php include'lib/menu.php'?>
-    
-    <div class="container">
-        <div class="row w-100 p-3">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="blog-post">
-                    <?php
-                        foreach($users as $user):
-                    ?>
-                    <h1 class="blog-post-title"><?php echo $user->title; ?></h1><hr>
-                    <p><?php echo $user->description; ?></p>
-                    <?php
-                        endforeach;
-                    ?>
-                </div>
+    <div class="container-flued">
+        <div class="row mx-0">
+            <div class="col-md-3">
             </div>
-        </div>
-    </div>
-   
-    <div class="container">
-        <div class="row w-100 p-3">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <?php
-                    //like dislike System
-                    if (isset($_POST['like']) ) {
-                        $post_id = $_POST['post_id'];
-                        $type = true;
-                        $type2 = false;
-
-                        //check user already like
-                        $query = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
-                        $query->execute(array(':post_id'=> $post_id,
-                                                ':user_id'=> $uid,
-                                                ':islikes' => $type
-                            ));
-                        if ($query->rowCount() == 0) {
-                            //If before the user does not like  then insert 1(like)
-                            $like = $conn->prepare("INSERT INTO likesdislikes(user_id, post_id, islikes) VALUES(:user_id, :post_id, :islikes)");
-                            $like->bindParam(':user_id', $uid);
-                            $like->bindParam(':post_id', $post_id);
-                            $like->bindParam(':islikes', $type);
-                            $like->execute();
-                        }elseif ($query->rowCount() == 1){
-                            //If before the user does not like  then insert 1(like)
-                            $like = $conn->prepare("DELETE FROM likesdislikes WHERE user_id = $uid AND post_id = $id");
-                            $like->execute();
-                        }
-
-                        //check user already dislike 
-                        $unlikeChack = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
-                        $unlikeChack->execute(array(':post_id'=> $post_id,
-                                                ':user_id'=> $uid,
-                                                ':islikes' => $type2
-                            ));
-                        if ($unlikeChack->rowCount() == 1) {
-                            //if user allready dislike then like
-                            $dele = $conn->prepare( "DELETE FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
-                            $dele->bindParam(":post_id",$post_id,PDO::PARAM_INT);
-                            $dele->bindParam(":user_id",$uid,PDO::PARAM_INT);
-                            $dele->bindParam(":islikes",$type2,PDO::PARAM_INT);
-                            $dele->execute();
-                        }
-
-                    }else if (isset($_POST['dislike']) ) {
-                        $post_id = $_POST['post_id'];
-                        $type = false;
-                        $type2 = true;
-
-                        //check user already like
-                        $query = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
-                        $query->execute(array(':post_id'=> $post_id,
-                                                ':user_id'=> $uid,
-                                                ':islikes' => $type
-                            ));
-                        if ($query->rowCount() == 0) {
-                            //If the user does not dislike before then insert 0(dislike)
-                            $dislike = $conn->prepare("INSERT INTO likesdislikes(user_id, post_id, islikes) VALUES(:user_id, :post_id, :islikes)");
-                            $dislike->bindParam(':user_id', $uid);
-                            $dislike->bindParam(':post_id', $post_id);
-                            $dislike->bindParam(':islikes', $type);
-                            $dislike->execute();
-                        }elseif ($query->rowCount() == 1){
-                            //If before the user does not like  then insert 1(like)
-                            $like = $conn->prepare("DELETE FROM likesdislikes WHERE user_id = $uid AND post_id = $id");
-                            $like->execute();
-                        }
-
-                        //check user already like 
-                        $likeChack = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
-                        $likeChack->execute(array(':post_id'=> $post_id,
-                                                ':user_id'=> $uid,
-                                                ':islikes' => $type2
-                            ));
-                        if ($likeChack->rowCount() == 1) {
-                            //if user allready like then dislike
-                            $dele = $conn->prepare( "DELETE FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
-                            $dele->bindParam(":post_id",$post_id,PDO::PARAM_INT);
-                            $dele->bindParam(":user_id",$uid,PDO::PARAM_INT);
-                            $dele->bindParam(":islikes",$type2,PDO::PARAM_INT);
-                            $dele->execute();
-                        }
-
-                    }
+            <div class="col-md-6">
+                <?php 
+                    foreach($users as $user):
                 ?>
-                <form action="single.php?id=<?php echo $id;?>" method="post">
-                    <input type="hidden" name="post_id" value="<?php echo $id; ?>">
-                    <button class="like" type="submit" name="like">
-                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                        <?php
-                            $checkLike = $conn->prepare("SELECT COUNT(islikes) FROM likesdislikes WHERE post_id = $id AND islikes = 1");
-                            $checkLike->execute();
-                            $totaLike = $checkLike->fetchColumn();
-                            echo "<h4><span>".$totaLike."</span></h4>";
-                        ?>
-                    </button>
-                    <button class="dislike" type="submit" name="dislike">
-                        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                        <?php
-                            $checkdisLike = $conn->prepare("SELECT COUNT(islikes) FROM likesdislikes WHERE post_id = $id AND islikes = 0");
-                            $checkdisLike->execute();
-                            $totaDislike = $checkdisLike->fetchColumn();
-                            echo "<h4><span>".$totaDislike."</span></h4>";
-                        ?>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row w-100 p-3">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="row">
-                    <label>
-                        <strong><span>Comment</span><span>*</span></strong>
-                    </label>
-                    <form action="process.php" method="post">
-                        <?php
-                            foreach($users as $user):
-                        ?>
-    
-                        <div class="form-group">
-                            <div class="col-md-11">
-                                <input type="hidden" name="post_id" class="form-control" value="<?php echo $user->id; ?>">
+                <div class="row my-2 p-2">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 mt-4">
+                                <img src="images/profile.png" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
+                                <strong class="ms-0 mt-3 text-info"><?php echo $user->name;?></strong><span class="ms-3 text-muted">25 min ago.</span>
                             </div>
                         </div>
-                        <?php 
-                            endforeach;
-                        ?>
-                        <div class="form-group">
-                            <textarea name="user-comment" class="form-control" id="exampleFormControlSelect1" rows="4" placeholder="Write comment..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <button type="submit" value="comment" name="comment" class="btn btn-success">Comment</button>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-11 mt-2">
+                                <h5><a class="nounderline" href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></h5>
+                                <p class="lead mb-0"><?php echo $user->description; ?></p>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
+                <?php
+                    endforeach;
+                ?>
+            </div>
+            <div class="col-md-3">
             </div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="row w-100 p-3"> 
-            <div class="col-md-2"></div>
-            <div class="col-md-8">   
-                <div class="comment">
-                    <?php
-                        $Comment = $conn->prepare("SELECT COUNT(DISTINCT user_id) FROM comnt WHERE post_id = $id ORDER BY user_id DESC");
-                        $Comment->execute();
-                        $totaComment = $Comment->fetchColumn();
-                    ?>
-                    <h5><span><i>(<?php echo $totaComment; ?>)</i></span> Show All Comment</h5>
-                    <?php
-                        //Show comment Query
-                        $cmmt = $conn->prepare("SELECT users.id, users.name, comnt.comment 
-                                            FROM users INNER JOIN comnt ON users.id = comnt.user_id 
-                                            where post_id= $id");
-                        $cmmt->execute();
-                        while($row = $cmmt->fetch(PDO::FETCH_OBJ)){
-                    ?>
-                        <H3><?php echo $row->name; ?></H3>
-                        <p><?php echo $row->comment; ?></p>
-                    <?php
-                        }
-                    ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- include footer file -->
-    <?php include  'lib/footer.php'; ?>
+ <!-- include footer file -->
+ <?php 
+    include  'lib/footer.php';
+?>
