@@ -7,7 +7,7 @@
 ?>
    <div class="container-flued">
         <div class="row mx-5">
-            <div class="col-md-12">
+            <div class="col-md-12 mx-5">
                 <h1>Edit Post</h1>
             </div>
             <form action="process.php" method="post">
@@ -28,7 +28,7 @@
                     if ($query->rowCount() > 0):
                         foreach($result as $row):
                 ?>
-                <div class="col-md-12">
+                <div class="col-md-12 mx-5">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row">
