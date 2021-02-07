@@ -102,7 +102,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem accusantium ratione ipsum est quibusdam voluptate, expedita eos necessitatibus doloribus unde consequuntur nobis possimus quaerat veritatis repudiandae ut deleniti ex iure.
 
     <!-- include footer file -->
 <?php 
