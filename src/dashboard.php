@@ -1,5 +1,10 @@
 <?php
     include_once'connection.php';
+    // include header file
+    include  'lib/header.php';
+    // include menubar file
+    include 'lib/menu.php';
+
     session_start();
     if (!$_SESSION['id']) {
         header('location:login.php');
@@ -9,54 +14,52 @@
     $result->execute();
     $users = $result->fetchAll(PDO::FETCH_OBJ);
 ?>  
-    <!-- include header file -->
-    <?php include  'lib/header.php'; ?>
-    <!-- include menubar file -->
-    <?php include'lib/menu.php'?>
-
     <?php
         if (isset($_SESSION['email'])) {
     ?>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <table class="table table-hover">
-                    <thead>
-                        <tr class="table-secondary">
-                            <th scope="col">Id</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            $counter = 0;
-                            foreach($users as $user):
-                        ?>
-                        <tr>
-                            <th scope="row"><?php echo ++$counter; ?></th>
-                            <td><a class="nounderline" href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></td>
-                            <td>
-                                <a class="ajax-action-links" href='edit.php?id=<?php echo $user->id; ?>'>
-                                    <img src="icon/edit.png" title="Edit" />
+    
+    <div class="container-flued">
+        <div class="row mx-0">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6 bg-transparent">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <?php
+                                $counter = 0;
+                                foreach($users as $user):
+                            ?>
+                            <div class="col-md-1 mt-2">
+                                <h5><?php echo ++$counter."."; ?></h5>
+                            </div>
+                            <div class="col-md-9 mt-2">
+                                <h5><a class="nounderline" href="single.php?id=<?php echo $user->id; ?>"><?php echo $user->title; ?></a></h5>
+                            </div>
+                            <div class="col-md-2 mt-2">
+                                <a class="ajax-action-links mx-2" href='edit.php?id=<?php echo $user->id; ?>'>
+                                    <i class="fas fa-edit"></i>
                                 </a>
-                                <a class="ajax-action-links" href='delete.php?id=<?php echo $user->id; ?>'>
-                                    <img src="icon/delete.png" title="Delete" />
+                                <a class="ajax-action-links mx-2" href='delete.php?id=<?php echo $user->id; ?>'>
+                                    <i class="fas fa-trash-alt"></i>
                                 </a>
-                            </td>
-                        </tr>
-                        <?php
-                            endforeach;
-                        ?>
-                    </tbody>
-                </table>
+                            </div>
+                            <?php
+                                endforeach;
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
             </div>
         </div>
     </div>
- 
+
     <?php
         }else echo "<h1>Please login first.</h1>";
     ?>
     <!--include footer file -->
-    <?php include  'lib/footer.php'; ?>
+<?php 
+    include  'lib/footer.php'; 
+?>
