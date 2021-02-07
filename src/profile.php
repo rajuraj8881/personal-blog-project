@@ -1,7 +1,20 @@
 <?php
-    include_once'connection.php';
+    include_once 'connection.php';
+    // include header file
+    include  'lib/header.php';
+    // include menubar file
+    include 'lib/menu.php';
+     // session start 
+     session_start();
+     if (!$_SESSION['id']) {
+         header('location:login.php');
+     }
+     //get login user id and name
+     $uid = $_SESSION['id'];
+     $uName = $_SESSION['name'];
 
     if(isset($_POST['subImages'])){
+        $user_id = $uid;
         $_FILES['image']['name'];
 
         $file_name = $_FILES['image']['name'];
@@ -22,8 +35,9 @@
                     $fileDestination = "uploads/".$file_name_new;
 
                     if (move_uploaded_file($file_tmp, $fileDestination)) {
-                        $imgIns = $conn->prepare("INSERT INTO img (imgs) VALUES(:images)");
+                        $imgIns = $conn->prepare("INSERT INTO img (imgs, name) VALUES(:images, :name)");
                         $imgIns->bindParam(':images', $file_name);
+                        $imgIns->bindParam(':name', $user_id);
                         $imgIns->execute();
                         header('location: profile.php?done');
                     }else{
@@ -39,64 +53,69 @@
             echo "You cannot upload files of this type!";
         }
     }
-
-
 ?>
-
-<!-- include header file -->
-<?php include  'lib/header.php'; ?>
-    <!-- include menubar file -->
-    <?php include'lib/menu.php'?>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <h1><strong>Profile</strong></h1>
-                <form action="profile.php" method="post" enctype="multipart/form-data">
-                    <div class="profile-thumb-block">
-                        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="profile-image" class="profile"/>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-6">
-                            <input type="file" name="image" class="form-control-file" id="myFile" require>
+    <div class="container-flued">
+        <div class="row mx-5">
+            <div class="col-md-12">
+                <div class="row mx-5">
+                    <div class="col-md-6">
+                        <div class="row justify-content-center ">
+                            <div class="col-md-12 text-center my-5">
+                                <img src="uploads/60201f0369b147.79971398.jpg" alt="profile-image" style="width: 160px; height: 120px; border-radius: 5px;"/>
+                                <h6>Recent Profile Picture</h6>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <button type="submit" name="subImages" class="btn btn-success">Upload</button>
+                    <!-- <div class="col-md-3 bg-success">container</div> -->
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="float-start me-auto mt-2 mb-2 mb-lg-0">
+                                    <h3><span>Profile</span></h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6 float-end">
+                                <div class="float-end">
+                                    <ul class="navbar-nav me-auto mt-1 mb-2 mb-lg-0">
+                                        <li class="nav-item">
+                                            <a href="" class="nav-link"><h3><strong>Edit</strong></h3></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="float-start">
+                                    <h6><strong>Raju Mondal</strong></h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-0">
+                                <div class="float-start">
+                                    <p class="lead mb-0"><span>doloribus unde consequuntur nobis possimus quaerat veritatis repudiandae ut deleniti ex iure.</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <div class="float-start">
+                                    <h6>Email : <strong>raju.mondal@winexsoft.com</strong></h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-0">
+                                <div class="float-start">
+                                    <h6>Phone : <strong>+8801670 685287</strong></h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-0">
+                                <div class="float-start">
+                                    <h6>Address : <strong>Dhaka, 1207</strong></h6>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </form>
-
-                <form>
-                    <div class="form-group">
-                        <label class="col-md-2 col-form-label">Name</label>
-                        <div class="col-md-4">
-                            <input type="text" name="name" class="form-control" placeholder="Name">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 col-form-label">Addresss</label>
-                        <div class="col-md-4">
-                            <input type="text" name="addresss" class="form-control" placeholder="address">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 col-form-label">Email</label>
-                        <div class="col-md-4">
-                            <input type="email" name="email" class="form-control" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <button type="submit" value="Submit" name="profileDet" class="btn btn-success">Update</button>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 
-<!-- include footer file -->
-<?php include  'lib/footer.php'; ?>
+    <!-- include footer file -->
+<?php 
+    include  'lib/footer.php';
+?>

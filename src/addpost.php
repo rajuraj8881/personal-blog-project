@@ -13,11 +13,11 @@
 
     <div class="container-flued">
         <div class="row mx-5">
-            <div class="col-md-12">
+            <div class="col-md-12 mx-5">
                 <h1>Add New Post</h1>
             </div>
             <form action="process.php" method="post">
-                <div class="col-md-12">
+                <div class="col-md-12 mx-5">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row">
