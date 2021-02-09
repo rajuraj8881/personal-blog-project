@@ -25,11 +25,12 @@
             <div class="col-md-6 bg-transparent">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="row">
-                            <?php
+                    <?php
                                 $counter = 0;
                                 foreach($users as $user):
                             ?>
+                        <div class="row shadow-block mt-3">
+                            
                             <div class="col-md-1 mt-2">
                                 <h5><?php echo ++$counter."."; ?></h5>
                             </div>
@@ -44,10 +45,11 @@
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>
-                            <?php
+                            
+                        </div>
+                        <?php
                                 endforeach;
                             ?>
-                        </div>
                     </div>
                 </div>
             </div>
