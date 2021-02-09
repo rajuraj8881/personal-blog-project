@@ -28,7 +28,7 @@
         <div class="row mx-0">
             <div class="col-md-3">
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 shadow-block">
                 <?php 
                     foreach($users as $user):
                 ?>
@@ -54,20 +54,8 @@
                 <?php
                     endforeach;
                 ?>
-            </div>
-            <div class="col-md-3">
-            </div>
-        </div>
-    </div>
-    <!-- like, dislike, insert comment, show total comment section -->
-    <div class="container-flued">
-        <div class="row mx-0">
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-6">
-                <div class="row my-2 p-2">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-11">
+                <div class="row">
+                    <div class="col-md-12">
                         <?php
                             //like dislike System
                             if (isset($_POST['like']) ) {
@@ -152,6 +140,7 @@
                         ?>
                         <form action="single.php?id=<?php echo $id;?>" method="post">
                             <input type="hidden" name="post_id" value="<?php echo $id; ?>">
+                                <hr style="height:2px; width:100%; border-width:0;" class="shadow-block px-4">
                                 <div class="row">
                                     <div class="col-md-1">
                                         <button class="like" type="submit" name="like">
@@ -193,7 +182,7 @@
                                             </div>
                                             <div class="col-md-4 mt-0">
                                                 <?php
-                                                    $Comment = $conn->prepare("SELECT COUNT(DISTINCT user_id) FROM comnt WHERE post_id = $id ORDER BY user_id DESC");
+                                                    $Comment = $conn->prepare("SELECT COUNT(user_id) FROM comnt WHERE post_id = $id ORDER BY user_id DESC");
                                                     $Comment->execute();
                                                     $totaComment = $Comment->fetchColumn();
                                                 ?>
@@ -202,11 +191,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <hr style="height:2px; width:100%; border-width:0;" class="shadow-block px-4">
                         </form>
-
                         <!-- insert comment -->
                         <div class="col-md-12">
-                            <div class="row mt-3">
+                            <div class="row">
                                 <form action="process.php" method="post">
                                     <?php
                                         foreach($users as $user):
@@ -219,7 +208,7 @@
                                     <?php 
                                         endforeach;
                                     ?>
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 mb-2">
                                         <div class="row">
                                             <div class="col-md-1 mt-2">
                                                 <img src="images/comment.jpg" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
@@ -239,41 +228,29 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-            </div>
-        </div>
-    </div>
-    <!-- show comment  -->
-    <div class="container-flued">
-        <div class="row mx-0">
-            <div class="col-md-3">
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-11">
-                        <?php
-                            //Show comment Query
-                            $cmmt = $conn->prepare("SELECT users.id, users.name, comnt.comment 
-                                                FROM users INNER JOIN comnt ON users.id = comnt.user_id 
-                                                where post_id= $id");
-                            $cmmt->execute();
-                            while($row = $cmmt->fetch(PDO::FETCH_OBJ)){
-                        ?>
-                            <H6><?php echo $row->name; ?></H6>
-                            <p><span><?php echo $row->comment; ?></span></p>
-                        <?php
-                            }
-                        ?>
+                <!-- show comment  -->
+                <?php
+                    //Show comment Query
+                    $cmmt = $conn->prepare("SELECT users.id, users.name, comnt.comment 
+                                        FROM users INNER JOIN comnt ON users.id = comnt.user_id 
+                                        where post_id= $id");
+                    $cmmt->execute();
+                    while($row = $cmmt->fetch(PDO::FETCH_OBJ)){
+                ?>
+                <div class="row shadow-block mt-2 mx-2">
+                    <div class="col-md-12">
+                        <H6><?php echo $row->name; ?></H6>
+                        <p><span><?php echo $row->comment; ?></span></p>
                     </div>
                 </div>
+                <?php
+                    }
+                ?>
             </div>
             <div class="col-md-3">
             </div>
         </div>
     </div>
-
  <!-- include footer file -->
  <?php 
     include  'lib/footer.php';

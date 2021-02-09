@@ -1,6 +1,6 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid mx-5">
-            <a class="navbar-brand" href="allpost.php">Blog</a>
+            <a class="navbar-brand" href="dashboard.php">Blog</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
