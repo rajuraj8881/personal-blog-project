@@ -12,7 +12,6 @@
     <style>
         body {
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
         }
         button.like{
             width: 30px;
@@ -56,6 +55,17 @@
         .addpostcolor{
             background-color: #FAFCF0;
         }
+        nav{
+         box-shadow: 0 0 10px #CCC;
+          
+        }
+        .navbar{
+            padding: 20px 0;  
+        }
+        .shadow-block{
+            box-shadow: 0 0 10px #ccc;
+        }
+
     </style>
 
 </head>
