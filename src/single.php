@@ -20,7 +20,7 @@
     $uid = $_SESSION['id'];
 
     //show login user all post
-    $result = $conn->prepare("SELECT users.name, addpost.id, addpost.title, addpost.description FROM users INNER JOIN addpost ON users.id = addpost.user_id WHERE addpost.id='$id'");
+    $result = $conn->prepare("SELECT users.name, users.imgs, addpost.id, addpost.title, addpost.description FROM users INNER JOIN addpost ON users.id = addpost.user_id WHERE addpost.id='$id'");
     $result->execute();
     $users = $result->fetchAll(PDO::FETCH_OBJ);
 ?>
@@ -36,7 +36,7 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6 mt-4">
-                                <img src="images/profile.png" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
+                                <img src="uploads/<?php echo $user->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
                                 <strong class="ms-0 mt-3 text-info"><?php echo $user->name;?></strong><span class="ms-3 text-muted">25 min ago.</span>
                             </div>
                         </div>
@@ -209,9 +209,15 @@
                                         endforeach;
                                     ?>
                                     <div class="col-md-12 mb-2">
+                                        <?php 
+                                            $CmtImg = $conn->prepare("SELECT * FROM users WHERE id=$uid");
+                                            $CmtImg->execute();
+                                            $showImage = $CmtImg->fetchAll(PDO::FETCH_OBJ);
+                                            foreach($showImage as $img):
+                                        ?>
                                         <div class="row">
                                             <div class="col-md-1 mt-2">
-                                                <img src="images/comment.jpg" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
+                                                <img src="uploads/<?php echo $img->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
                                             </div>
                                             <div class="col-md-11 mt-3">
                                                 <input type="text" name="user-comment" class="form-control" placeholder="Write Comments">  
@@ -222,6 +228,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <?php
+                                            endforeach;
+                                        ?>
                                     </div>
                                 </form>
                             </div>
