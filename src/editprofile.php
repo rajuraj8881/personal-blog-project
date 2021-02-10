@@ -35,11 +35,11 @@
                     $fileDestination = "uploads/".$file_name_new;
 
                     if (move_uploaded_file($file_tmp, $fileDestination)) {
-                        $imgIns = $conn->prepare("INSERT INTO img (imgs, name) VALUES(:images, :name)");
+                        $imgIns = $conn->prepare("UPDATE users SET imgs=:images WHERE id=:id");
                         $imgIns->bindParam(':images', $file_name);
-                        $imgIns->bindParam(':name', $user_id);
+                        $imgIns->bindParam(':id', $user_id);
                         $imgIns->execute();
-                        header('location: profile.php?done');
+                        header('location: editprofile.php');
                     }else{
                         echo "Your directory Missing!";
                     }  
@@ -53,77 +53,120 @@
             echo "You cannot upload files of this type!";
         }
     }
+    // Update profile 
+    if (isset($_POST['profileSubmit'])) {
+        $id = $uid;
+        $name = $_POST['users-name'];
+        $bio = $_POST['users-subtitle'];
+        $email = $_POST['users-email'];
+        $phone = $_POST['users-phone'];
+        $address = $_POST['users-address'];
+
+        $query = $conn->prepare("UPDATE users SET name=:name, bio=:bio, email=:email, phone=:phone, address=:address WHERE id=:id");
+        $query->bindParam(':name',$name);
+        $query->bindParam(':bio',$bio);
+        $query->bindParam(':email',$email);
+        $query->bindParam(':phone',$phone);
+        $query->bindParam(':address',$address);
+        $query->bindParam(':id',$id);
+        $query->execute();
+        header('location: editprofile.php');
+    }
 ?>
     <div class="container-flued">
         <div class="row mx-5">
             <div class="col-md-12">
-                <form action="editprofile.php" method="post" enctype="multipart/form-data">
-                    <div class="row mx-5 mt-3 shadow-block">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-12 text-center my-5">
-                                    <div class="btn btn-mdb-color btn-rounded float-left">
-                                        <span>Add photo</span>
-                                        <input type="file" class="form-control-file" id="myFile" name="filename">
+                <div class="row mx-5 my-3 shadow-block">
+                    <div class="col-md-6">
+                        <div class="row my-5">
+                            <form action="editprofile.php" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <div class="col-sm-12 text-center">
+                                        <input type="file" name="image" class="form-control-file" id="myFile">
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12 text-center">
+                                        <button type="submit" name="subImages" class="btn btn-success">Upload</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-3 bg-success">container</div> -->
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="float-start me-auto my-3 mb-lg-0">
+                                    <h3><span>Edit Profile</span></h3>
                                 </div>
                             </div>
-                        </div>
-                        <!-- <div class="col-md-3 bg-success">container</div> -->
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="float-start me-auto my-3 mb-lg-0">
-                                        <h3><span>Edit Profile</span></h3>
-                                    </div>
+                            <div class="col-md-6 float-end">
+                                <div class="float-end">
+                                    <ul class="navbar-nav me-auto my-2 mb-lg-0">
+                                        <li class="nav-item">
+                                            <a href="profile.php" class="nav-link"><h3><strong>Profile</strong></h3></a>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="col-md-6 float-end">
-                                    <div class="float-end">
-                                        <ul class="navbar-nav me-auto my-2 mb-lg-0">
-                                            <li class="nav-item">
-                                                <a href="profile.php" class="nav-link"><h3><strong>Profile</strong></h3></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
+                            </div>
+                            <div class="col-md-12">
+                                <form action="editprofile.php" method="post">
+                                    <?php
+                                        $id = $uid;
+                                        $query = $conn->prepare("SELECT * FROM users WHERE id=:id");
+                                        $query->bindParam(':id', $id);
+                                        $query->execute();
+                                        $result = $query->fetchAll(PDO::FETCH_OBJ);
+                                        if ($query->rowCount() > 0):
+                                            foreach($result as $row):
+                                    ?>
                                     <div class="row my-3">
-                                        <div class="col-md-6 mt-3">
-                                            <div class="float-start">
-                                                <h6><strong>Raju Mondal</strong></h6>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <lable>Name : </lable>
+                                                <input type="text" name="users-name" class="form-control" value="<?php echo $row->name;?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mt-0">
-                                            <div class="float-start">
-                                                <p class="lead mb-0"><span>doloribus unde consequuntur nobis possimus quaerat veritatis repudiandae ut deleniti ex iure.</span></p>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <lable>Bio : </lable>
+                                                <textarea name="users-subtitle" class="form-control" id="exampleFormControlSelect1" rows="4"><?php echo $row->bio;?></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mt-3">
-                                            <div class="float-start">
-                                                <h6>Email : <strong>raju.mondal@winexsoft.com</strong></h6>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <lable>Email : </lable>
+                                                <input type="text" name="users-email" class="form-control" value="<?php echo $row->email;?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mt-0">
-                                            <div class="float-start">
-                                                <h6>Phone : <strong>+8801670 685287</strong></h6>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <lable>Phone : </lable>
+                                                <input type="text" name="users-phone" class="form-control" value="<?php echo $row->phone;?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mt-0">
-                                            <div class="float-start">
-                                                <h6>Address : <strong>Dhaka, 1207</strong></h6>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <lable>Address : </lable>
+                                                <input type="text" name="users-address" class="form-control" value="<?php echo $row->address;?>">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
                                                 <button type="submit" value="Submit" name="profileSubmit" class="btn btn-success">Update</button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <?php
+                                            endforeach;
+                                        endif;
+                                    ?>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
