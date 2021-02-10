@@ -26,12 +26,12 @@
         $fileExt = explode('.', $file_name);
         $fileActulExt = strtolower(end($fileExt));
 
-        $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+        $allowed = array('jpg', 'jpeg', 'png');
 
         if (in_array($fileActulExt, $allowed)) {
             if ($file_error === 0) {
                 if ($file_size < 5000000) {
-                    $file_name_new = uniqid('', true).".".$fileActulExt;
+                    $file_name_new = $file_name;
                     $fileDestination = "uploads/".$file_name_new;
 
                     if (move_uploaded_file($file_tmp, $fileDestination)) {
@@ -105,7 +105,7 @@
                                 <div class="float-end">
                                     <ul class="navbar-nav me-auto my-2 mb-lg-0">
                                         <li class="nav-item">
-                                            <a href="profile.php" class="nav-link"><h3><strong>Profile</strong></h3></a>
+                                            <a href="profile.php" class="nav-link"><h3><strong>View Profile</strong></h3></a>
                                         </li>
                                     </ul>
                                 </div>
