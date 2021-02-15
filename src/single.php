@@ -246,7 +246,7 @@
                     $cmmt->execute();
                     while($row = $cmmt->fetch(PDO::FETCH_OBJ)){
                 ?>
-                <div class="row shadow-block mt-2 mx-2">
+                <div class="row mt-2 mx-2">
                     <div class="col-md-12">
                         <H6><?php echo $row->name; ?></H6>
                         <p><span><?php echo $row->comment; ?></span></p>
