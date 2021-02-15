@@ -177,8 +177,7 @@
                                     <div class="col-md-3">
                                         <div class="row">
                                             <div class="col-md-8 mt-0">
-                                                <h5><span class="text-secondary">Comment</span></h5>
-                                                
+                                                <h5><span class="text-secondary">Comment</span></h5> 
                                             </div>
                                             <div class="col-md-4 mt-0">
                                                 <?php
@@ -217,7 +216,7 @@
                                         ?>
                                         <div class="row">
                                             <div class="col-md-1 mt-2">
-                                                <img src="uploads/<?php echo $img->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
+                                                <img src="uploads/<?php echo $img->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="50" height="50">
                                             </div>
                                             <div class="col-md-11 mt-3">
                                                 <input type="text" name="user-comment" class="form-control" placeholder="Write Comments">  
