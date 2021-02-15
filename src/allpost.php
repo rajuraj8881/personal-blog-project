@@ -11,7 +11,7 @@
     }
     $uid = $_SESSION['id'];
 
-    $result = $conn->prepare("SELECT * FROM addpost where user_id=$uid");
+    $result = $conn->prepare("SELECT users.id, users.imgs, users.name, addpost.id, addpost.title, addpost.description FROM users INNER JOIN addpost ON users.id = addpost.user_id WHERE user_id=$uid ORDER BY addpost.id DESC");
     $result->execute();
     $users = $result->fetchAll(PDO::FETCH_OBJ);
 ?>  
@@ -31,8 +31,8 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-10 my-2">
-                                <img src="uploads/IMG_20201028_062138.jpg" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
-                                <strong class="ms-0 mt-3 text-info">Raju Mondal</strong>
+                                <img src="uploads/<?php echo $user->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
+                                <strong class="ms-0 mt-3 text-info"><?php echo $user->name;?></strong>
                             </div>
                             <div class="col-md-2 my-3">
                                 <a class="ajax-action-links mx-2" href='edit.php?id=<?php echo $user->id; ?>'>
@@ -60,16 +60,16 @@
                             <div class="col-md-12">
                                 <div class="row shadow-block mt-2 mx-2">
                                     <div class="col-md-12 my-2">
-                                        <img src="uploads/IMG_20201028_062138.jpg" class="rounded-circle" alt="Cinque Terre" width="20" height="20" >
+                                        <img src="uploads/<?php echo $user->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="20" height="20" >
                                         <strong>Raju Mondal</strong>
-                                        <p><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dolore nemo, nesciunt omnis fuga accusamus debitis eaque. Distinctio consequatur quos voluptatibus excepturi, autem vitae ullam dolore velit aliquam possimus voluptatum cupiditate explicabo fuga et nobis veritatis enim repellat quaerat magnam. Obcaecati dolores voluptate, at aspernatur cum ipsa possimus amet praesentium.</span></p>
+                                        <p><span>lorem50</span></p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-1 mt-2">
-                                        <img src="uploads/IMG_20201028_062138.jpg" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
+                                        <img src="uploads/<?php echo $user->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
                                     </div>
                                     <div class="col-md-11 mt-3">
                                         <input type="text" name="comment" class="form-control" placeholder="Write Comments">  
