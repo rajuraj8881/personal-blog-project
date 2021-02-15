@@ -84,7 +84,7 @@
         $query->bindParam(':description',$description);
         $query->bindParam(':id',$id);
         $query->execute();
-            echo"Success";
+        header("location: allpost.php");
     }
 
      //post comment add
