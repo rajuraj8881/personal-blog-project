@@ -28,7 +28,7 @@
         <div class="row mx-0">
             <div class="col-md-3">
             </div>
-            <div class="col-md-6 shadow-block">
+            <div class="col-md-6 my-2 shadow-block">
                 <?php 
                     foreach($users as $user):
                 ?>
@@ -192,48 +192,6 @@
                                 </div>
                                 <hr style="height:2px; width:100%; border-width:0;" class="shadow-block px-4">
                         </form>
-                        <!-- insert comment -->
-                        <div class="col-md-12">
-                            <div class="row">
-                                <form action="process.php" method="post">
-                                    <?php
-                                        foreach($users as $user):
-                                    ?>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <input type="hidden" name="post_id" class="form-control" value="<?php echo $user->id; ?>">
-                                        </div>
-                                    </div>
-                                    <?php 
-                                        endforeach;
-                                    ?>
-                                    <div class="col-md-12 mb-2">
-                                        <?php 
-                                            $CmtImg = $conn->prepare("SELECT * FROM users WHERE id=$uid");
-                                            $CmtImg->execute();
-                                            $showImage = $CmtImg->fetchAll(PDO::FETCH_OBJ);
-                                            foreach($showImage as $img):
-                                        ?>
-                                        <div class="row">
-                                            <div class="col-md-1 mt-2">
-                                                <img src="uploads/<?php echo $img->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="50" height="50">
-                                            </div>
-                                            <div class="col-md-11 mt-3">
-                                                <input type="text" name="user-comment" class="form-control" placeholder="Write Comments">  
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-12">
-                                                    <button type="submit" value="comment" name="comment" class="btn btn-success">Comment</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php
-                                            endforeach;
-                                        ?>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- show comment  -->
@@ -257,6 +215,48 @@
                 <?php
                     }
                 ?>
+                <!-- insert comment -->
+                <div class="col-md-12">
+                    <div class="row">
+                        <form action="process.php" method="post">
+                            <?php
+                                foreach($users as $user):
+                            ?>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="hidden" name="post_id" class="form-control" value="<?php echo $user->id; ?>">
+                                </div>
+                            </div>
+                            <?php 
+                                endforeach;
+                            ?>
+                            <div class="col-md-12 mb-2">
+                                <?php 
+                                    $CmtImg = $conn->prepare("SELECT * FROM users WHERE id=$uid");
+                                    $CmtImg->execute();
+                                    $showImage = $CmtImg->fetchAll(PDO::FETCH_OBJ);
+                                    foreach($showImage as $img):
+                                ?>
+                                <div class="row">
+                                    <div class="col-md-1 mt-2">
+                                        <img src="uploads/<?php echo $img->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="50" height="50">
+                                    </div>
+                                    <div class="col-md-11 mt-3">
+                                        <input type="text" name="user-comment" class="form-control" placeholder="Write Comments">  
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button type="submit" value="comment" name="comment" class="btn btn-success">Comment</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                    endforeach;
+                                ?>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
             <div class="col-md-3">
             </div>
