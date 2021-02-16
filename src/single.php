@@ -239,16 +239,19 @@
                 <!-- show comment  -->
                 <?php
                     //Show comment Query
-                    $cmmt = $conn->prepare("SELECT users.id, users.name, comnt.comment 
+                    $cmmt = $conn->prepare("SELECT users.id, users.imgs, users.name, comnt.comment 
                                         FROM users INNER JOIN comnt ON users.id = comnt.user_id 
                                         where post_id= $id");
                     $cmmt->execute();
                     while($row = $cmmt->fetch(PDO::FETCH_OBJ)){
                 ?>
-                <div class="row mt-2 mx-2">
+                <div class="row shadow-block mt-2 mx-2">
+                    <div class="col-md-12 my-2">
+                        <img src="uploads/<?php echo $row->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="20" height="20" >
+                        <strong><?php echo $row->name; ?></strong>
+                    </div>
                     <div class="col-md-12">
-                        <H6><?php echo $row->name; ?></H6>
-                        <p><span><?php echo $row->comment; ?></span></p>
+                        <p class="lead mb-2" style="font-size: 15px; font-style: normal;"><span><?php echo $row->comment; ?></span></p>
                     </div>
                 </div>
                 <?php

@@ -58,11 +58,13 @@
                                 <hr style="height:2px; width:100%; border-width:0;" class="shadow-block">
                             </div>
                             <div class="col-md-12">
-                                <div class="row shadow-block mt-2 mx-2">
-                                    <div class="col-md-12 my-2">
+                                <div class="row shadow-block mt-0 mx-0">
+                                    <div class="col-md-12 my-1">
                                         <img src="uploads/<?php echo $user->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="20" height="20" >
                                         <strong>Raju Mondal</strong>
-                                        <p><span>lorem50</span></p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p class="lead mb-2" style="font-size: 15px; font-style: normal;"><span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae molestias amet inventore quia magnam corrupti ad facere libero tempore possimus maiores deserunt consequuntur beatae nemo ratione adipisci debitis, consectetur voluptates dolore veniam voluptas rem? Magni quos eos aliquam, fuga expedita enim, molestias repudiandae ipsam quod, dolore accusantium amet rem impedit!</span></p>
                                     </div>
                                 </div>
                             </div>
