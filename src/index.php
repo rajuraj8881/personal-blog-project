@@ -25,6 +25,12 @@
             <div class="col-md-6">
                 <div class="row my-5 p-5 bg-light" >
                     <h1 class="text-center mt-1">Sign Up</h1>
+                    <?php
+                        if (isset($_GET['message'])) {
+                            $message = $_GET['message'];
+                            echo $message;
+                        }
+                    ?>
                     <form action="process.php" method="post">
                         <div class="form-group">
                             <label for="usr"><Strong>Name</Strong></label>
