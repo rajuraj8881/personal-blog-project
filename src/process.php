@@ -50,7 +50,7 @@
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['password'] = $row['password'];
             }else{
-                echo"Email or password are wrong";
+                header('location: login.php?message=<div class="alert alert-danger ">Incorrect Email Or Passwoerd.</div>');
             } 
         }else{
             header("location:login.php");
