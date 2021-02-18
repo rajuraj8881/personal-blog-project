@@ -77,8 +77,8 @@
 ?>
     <div class="container-flued">
         <div class="row mx-5">
-            <div class="col-md-12">
-                <div class="row mx-5 my-3 shadow-block">
+            <div class="col-md-12 mt-5">
+                <div class="row mx-5 my-3 shadow-block mt-5">
                     <div class="col-md-6">
                         <div class="row my-5">
                             <form action="editprofile.php" method="post" enctype="multipart/form-data">
