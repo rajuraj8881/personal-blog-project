@@ -4,28 +4,25 @@
     //register
     if(isset($_POST['regSubmit'])){
         $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
-        $password = md5($_POST['password']);
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+        $password = filter_var($_POST['password'], FILTER_VALIDATE_REGEXP, array( "options"=> array( "regexp" => "/.{6,25}/")));
 
-        if ($name =="") {
-            header('location: index.php?message=<div class="alert alert-danger ">Empty Name.</div>');
-        }elseif ($email == '') {
-            header('location: index.php?message=<div class="alert alert-danger ">Empty Email.</div>');
-        }elseif ($password == '') {
-            header('location: index.php?message=<div class="alert alert-danger ">Empty Passwoed.</div>');
+        if (empty($name) || empty($email) || empty($password)) {
+            header('location: index.php?error');
         }else{
             $query = $conn->prepare( "SELECT * FROM users WHERE email = :email" );
             $query->execute(array(':email'=> $email));
             if ($query->rowCount() > 0) {
-                header('location: index.php?message=<div class="alert alert-danger ">Email Allready Exist.</div>');
+                header('location: index.php?exist');
             }else{
+                $password = md5($password);
                 $query = $conn->prepare("INSERT INTO users(name, password, email) value(:name,:password,:email)");
                 $query->bindParam(':name', $name);
                 $query->bindParam(':password', $password);
                 $query->bindParam(':email', $email);
                 $query->execute();
                 if ($query->rowCount() > 0) {
-                    header('location: login.php?message=<div class="alert alert-success">Registration Successful. Please Login...</div>');
+                    header('location: login.php?success');
                 }
             }
         } 
@@ -35,14 +32,13 @@
     //login section 
     if (isset($_POST['logSubmit'])) {
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-        $password = md5($_POST['password']);
+        $password = filter_var($_POST['password'], FILTER_VALIDATE_REGEXP, array( "options"=> array( "regexp" => "/.{6,25}/")));
         
-        if ($email == '') {
-            header('location: login.php?message=<div class="alert alert-danger ">Empty Email.</div>');
-        }elseif ($password == '') {
-            header('location: login.php?message=<div class="alert alert-danger ">Empty Passwoed.</div>');
+        if (empty($email) || empty($password)) {
+            header('location: login.php?error');
         }else{
             if ($email !='' && $password != '') {
+                $password = md5($password);
                 $query = "SELECT * FROM users WHERE email = :email AND password =:password";
                 $stmt = $conn->prepare($query);
                 $stmt->bindParam(':email',$email);
@@ -56,7 +52,7 @@
                     $_SESSION['email'] = $row['email'];
                     $_SESSION['password'] = $row['password'];
                 }else{
-                    header('location: login.php?message=<div class="alert alert-danger ">Incorrect Email Or Passwoerd.</div>');
+                    header('location: login.php?check');
                 } 
             }else{
                 header("location:login.php");
