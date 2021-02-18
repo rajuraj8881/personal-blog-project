@@ -1,10 +1,10 @@
 <?php
+    // session start 
     session_start();
+    //set database Connection
     include_once'connection.php';
-    
     // include header file
-    include  'lib/header.php';
-
+    include'lib/header.php';
     // include menubar file
     include'lib/menu.php';
     

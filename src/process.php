@@ -1,6 +1,9 @@
 <?php
-    include_once'connection.php';
+    // session start 
     session_start();
+    //set database Connection
+    include_once'connection.php';
+
     //register
     if(isset($_POST['regSubmit'])){
         $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
