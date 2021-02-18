@@ -35,25 +35,32 @@
     //login section 
     if (isset($_POST['logSubmit'])) {
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-        $password = md5($_POST['password']);  
-        if ($email !='' && $password != '') {
-            $query = "SELECT * FROM users WHERE email = :email AND password =:password";
-            $stmt = $conn->prepare($query);
-            $stmt->bindParam(':email',$email);
-            $stmt->bindParam(':password',$password);
-            $stmt->execute();
-            $count = $stmt->rowCount();
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($count == 1 && !empty( $row)) {
-                $_SESSION['id'] = $row['id'];
-                $_SESSION['name'] = $row['name'];
-                $_SESSION['email'] = $row['email'];
-                $_SESSION['password'] = $row['password'];
-            }else{
-                header('location: login.php?message=<div class="alert alert-danger ">Incorrect Email Or Passwoerd.</div>');
-            } 
+        $password = md5($_POST['password']);
+        
+        if ($email == '') {
+            header('location: login.php?message=<div class="alert alert-danger ">Empty Email.</div>');
+        }elseif ($password == '') {
+            header('location: login.php?message=<div class="alert alert-danger ">Empty Passwoed.</div>');
         }else{
-            header("location:login.php");
+            if ($email !='' && $password != '') {
+                $query = "SELECT * FROM users WHERE email = :email AND password =:password";
+                $stmt = $conn->prepare($query);
+                $stmt->bindParam(':email',$email);
+                $stmt->bindParam(':password',$password);
+                $stmt->execute();
+                $count = $stmt->rowCount();
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($count == 1 && !empty( $row)) {
+                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['name'] = $row['name'];
+                    $_SESSION['email'] = $row['email'];
+                    $_SESSION['password'] = $row['password'];
+                }else{
+                    header('location: login.php?message=<div class="alert alert-danger ">Incorrect Email Or Passwoerd.</div>');
+                } 
+            }else{
+                header("location:login.php");
+            }
         }
     }
 
