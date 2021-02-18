@@ -1,6 +1,9 @@
 <?php
-    include_once'connection.php';
+    // session start 
     session_start();
+    //set database Connection
+    include_once'connection.php';
+    
     if (!$_SESSION['id']) {
         header('location:login.php');
     }

@@ -1,9 +1,12 @@
 <?php 
-    include_once 'connection.php';
+    // session start 
+    session_start();
+    //set database Connection
+    include_once'connection.php';
     // include header file
-    include 'lib/header.php';
+    include'lib/header.php';
     // include menubar file
-    include 'lib/menu.php';
+    include'lib/menu.php';
 ?>
    <div class="container-flued">
         <div class="row mx-5">

@@ -1,11 +1,13 @@
 <?php
-    include_once 'connection.php';
-    // include header file
-    include  'lib/header.php';
-    // include menubar file
-    include 'lib/menu.php';
-
+    // session start
     session_start();
+    //set database Connection
+    include_once'connection.php';
+    // include header file
+    include'lib/header.php';
+    // include menubar file
+    include'lib/menu.php';
+
     $id = NULL;
     if(isset($_POST['id'])){
         $id = $_POST['id'];
