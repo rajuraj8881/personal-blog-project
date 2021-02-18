@@ -108,7 +108,10 @@
         $cmmt->bindParam(':user_id', $user_id);
         $cmmt->bindParam(':post_id', $post_id);
         $cmmt->bindParam(':comment', $cmnt);
-        $cmmt->execute();
+        $showPage = $cmmt->execute();
+        if ($showPage) {
+            header("location: single.php?id=$post_id");
+        }
     }
     
 ?>
