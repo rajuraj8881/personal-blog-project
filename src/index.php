@@ -26,9 +26,14 @@
                 <div class="row my-5 p-5 bg-light" >
                     <h1 class="text-center mt-1">Sign Up</h1>
                     <?php
-                        if (isset($_GET['message'])) {
-                            $message = $_GET['message'];
-                            echo $message;
+                        $msg = "";
+                        if (isset($_GET['error'])) {
+                            $msg = "Please Fill in the Blanks.";
+                            echo '<div class="alert alert-danger ">'.$msg.'</div>';
+                        }
+                        if (isset($_GET['exist'])) {
+                            $msg = "Email allready Exist.";
+                            echo '<div class="alert alert-danger ">'.$msg.'</div>';
                         }
                     ?>
                     <form action="process.php" method="post">
