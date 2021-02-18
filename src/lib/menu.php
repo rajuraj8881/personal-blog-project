@@ -22,7 +22,7 @@
                         <a class="nav-link" href="logout.php">Logout</a>
                     </li>
                 </ul>
-                <form class="d-flex" action="search.php" method="post">
+                <form class="d-flex" method="GET" action="search.php">
                     <input type="text" placeholder="Search.." name="search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit" value="Submit" name="search_key">Search</button>
                 </form>
