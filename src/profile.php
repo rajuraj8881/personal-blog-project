@@ -19,11 +19,11 @@
 ?>
     <div class="container-flued">
         <div class="row mx-5">
-            <div class="col-md-12">
+            <div class="col-md-12 mt-5">
                 <?php
                     foreach($users as $user):
                 ?>
-                <div class="row mx-5 mt-3 shadow-block">
+                <div class="row mx-5 mt-3 shadow-block mt-5">
                     <div class="col-md-6">
                         <div class="row justify-content-center ">
                             <div class="col-md-12 text-center my-5">

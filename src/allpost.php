@@ -25,11 +25,11 @@
         <div class="row mx-0">
             <div class="col-md-3">
             </div>
-            <div class="col-md-6 bg-transparent">
+            <div class="col-md-6 bg-transparent mt-5">
                 <?php
                     foreach($users as $user):
                 ?>
-                <div class="row my-2 p-2 shadow-block">
+                <div class="row my-2 p-2 shadow-block mt-5">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-10 my-2">

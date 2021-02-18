@@ -65,6 +65,18 @@
         .shadow-block{
             box-shadow: 0 0 10px #ccc;
         }
+        .nav-link:hover{
+            font-weight: 600;
+            border-bottom: 1px solid #717D7E;
+        }
+        .navbar-nav{
+            margin-right: 20px;
+        }
+        .fixed-top.scrolled{
+            background-color: #0c7f90;
+            transition: background-color 200ms linear;
+            opacity: 0.9;
+        }
 
     </style>
 

@@ -11,8 +11,8 @@
    <div class="container-flued">
         <div class="row mx-5">
             <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="row my-2 shadow-block">
+            <div class="col-md-8 mt-5">
+                <div class="row my-2 shadow-block mt-5">
                     <div class="col-md-12">
                         <h1>Edit Post</h1>
                     </div>
