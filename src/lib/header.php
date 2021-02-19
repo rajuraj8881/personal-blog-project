@@ -72,12 +72,6 @@
         .navbar-nav{
             margin-right: 20px;
         }
-        .fixed-top.scrolled{
-            background-color: #0c7f90;
-            transition: background-color 200ms linear;
-            opacity: 0.9;
-        }
-
     </style>
 
 </head>

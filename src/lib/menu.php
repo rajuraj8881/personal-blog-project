@@ -9,19 +9,19 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mt-1 mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="dashboard.php">All Post</a>
+                                <a href="dashboard.php" class="nav-link <?= (basename($_SERVER['PHP_SELF'])=="dashboard.php")?"active":"";?>">All Post</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="allpost.php">My Post</a>
+                                <a href="allpost.php" class="nav-link <?= (basename($_SERVER['PHP_SELF'])=="allpost.php")?"active":"";?>">My Post</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="addpost.php">Add Post</a>
+                                <a href="addpost.php" class="nav-link <?= (basename($_SERVER['PHP_SELF'])=="addpost.php")?"active":"";?>">Add Post</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="profile.php">Profile</a>
+                                <a href="profile.php" class="nav-link <?= (basename($_SERVER['PHP_SELF'])=="profile.php")?"active":"";?>" >Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="logout.php">Logout</a>
+                                <a class="nav-link " href="logout.php">Logout</a>
                             </li>
                         </ul>
                         <form class="d-flex" method="GET" action="search.php">
