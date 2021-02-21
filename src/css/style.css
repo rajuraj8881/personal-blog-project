@@ -1,6 +1,9 @@
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+img, svg {
+    margin-top: -25px;
+}
 button.like{
     width: 30px;
     height: 30px;
