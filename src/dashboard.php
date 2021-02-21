@@ -45,9 +45,9 @@
                 <div class="row my-2 p-2 shadow-block mt-5">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-6 my-2">
+                            <div class="col-md-6 my-4">
                                 <img src="uploads/<?php echo $user->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
-                                <strong class="ms-0 mt-3 text-info"><?php echo $user->name;?></strong><span class="ms-3 text-muted">25 min ago.</span>
+                                <strong class="ms-0 text-info"><?php echo $user->name;?></strong><span class="ms-3 text-muted">25 min ago.</span>
                             </div>
                         </div>
                     </div>
@@ -102,8 +102,8 @@
                                 <hr style="height:2px; width:100%; border-width:0;" class="shadow-block px-4">
                                 <!-- show comment  -->
                                 <div class="row shadow-block mt-0 mx-0">
-                                    <div class="col-md-12 my-1">
-                                        <img src="uploads/IMG_20201028_100601.jpg" class="rounded-circle" alt="Cinque Terre" width="20" height="20" >
+                                    <div class="col-md-12 my-2">
+                                        <img src="uploads/IMG_20201028_100601.jpg" style="margin-top: 1px;" class="rounded-circle" alt="Cinque Terre" width="20" height="20" >
                                         <strong>sfgsdgf</strong>
                                     </div>
                                     <div class="col-md-12">
@@ -121,7 +121,7 @@
                                             </div>
                                             <div class="col-md-12 mb-2">
                                                 <div class="row mt-2">
-                                                    <div class="col-md-1">
+                                                    <div class="col-md-1 my-3">
                                                         <img src="uploads/IMG_20201028_100601.jpg" class="rounded-circle" alt="Cinque Terre" width="40" height="40">
                                                     </div>
                                                     <div class="col-md-11">
