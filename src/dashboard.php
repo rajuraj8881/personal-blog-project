@@ -36,11 +36,11 @@
         <div class="row mx-0">
             <div class="col-md-3">
             </div>
-            <div class="col-md-6 bg-transparent"> 
+            <div class="col-md-6 bg-transparent mt-5"> 
                 <?php 
                     foreach($users as $user):
                 ?>
-                <div class="row my-2 p-2 shadow-block">
+                <div class="row my-2 p-2 shadow-block mt-5">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6 my-4">
@@ -114,6 +114,7 @@
                                             </div>
                                         </div>
                                     </div>
+<<<<<<< HEAD
                                     <hr style="height:2px; width:100%; border-width:0;" class="shadow-block px-4">
                                     <!-- show comment  -->
                                     <div class="row shadow-block mt-0 mx-0">
@@ -135,14 +136,45 @@
                                         <?php
                                             endwhile;
                                         ?>
+=======
+                                </div>
+                                <hr style="height:2px; width:100%; border-width:0;" class="shadow-block px-4">
+                                <!-- show comment  -->
+                                <div class="row shadow-block mt-0 mx-0">
+                                    <div class="col-md-12 my-2">
+                                        <img src="uploads/IMG_20201028_100601.jpg" style="margin-top: 1px;" class="rounded-circle" alt="Cinque Terre" width="20" height="20" >
+                                        <strong>sfgsdgf</strong>
+>>>>>>> 8882a17d548b79556dff3b3d98f02f0cb866bc36
                                     </div>
                                     <!-- insert comment -->
                                     <div class="col-md-12">
+<<<<<<< HEAD
                                         <div class="row">
                                             <form action="process.php" method="post">
                                                 <div class="form-group">
                                                     <div class="col-md-12">
                                                         <input type="hidden" name="post_id" class="form-control" value="">
+=======
+                                        <p class="lead mb-2" style="font-size: 15px; font-style: normal;"><span>rfgdfgdfgdfgf</span></p>
+                                    </div>
+                                </div>
+                                <!-- insert comment -->
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <form action="process.php" method="post">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <input type="hidden" name="post_id" class="form-control" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-2">
+                                                <div class="row mt-2">
+                                                    <div class="col-md-1 my-3">
+                                                        <img src="uploads/IMG_20201028_100601.jpg" class="rounded-circle" alt="Cinque Terre" width="40" height="40">
+                                                    </div>
+                                                    <div class="col-md-11">
+                                                        <input type="text" name="user-comment" class="form-control" placeholder="Write Comments">  
+>>>>>>> 8882a17d548b79556dff3b3d98f02f0cb866bc36
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 mb-2">

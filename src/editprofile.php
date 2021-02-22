@@ -1,11 +1,13 @@
 <?php
-    include_once 'connection.php';
+    // session start 
+    session_start();
+    //set database Connection
+    include_once'connection.php';
     // include header file
-    include  'lib/header.php';
+    include'lib/header.php';
     // include menubar file
-    include 'lib/menu.php';
-     // session start 
-     session_start();
+    include'lib/menu.php';
+    
      if (!$_SESSION['id']) {
          header('location:login.php');
      }
@@ -75,29 +77,14 @@
 ?>
     <div class="container-flued">
         <div class="row mx-5">
-            <div class="col-md-12">
-                <div class="row mx-5 my-3 shadow-block">
-                    <div class="col-md-6">
-                        <div class="row my-5">
-                            <form action="editprofile.php" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <div class="col-sm-12 text-center">
-                                        <input type="file" name="image" class="form-control-file" id="myFile">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12 text-center">
-                                        <button type="submit" name="subImages" class="btn btn-success">Upload</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- <div class="col-md-3 bg-success">container</div> -->
-                    <div class="col-md-6">
+            <div class="col-md-2 mt-5">
+            </div>
+            <div class="col-md-8 mt-5">
+                <div class="row mx-5 my-3 shadow-block mt-5 justify-content-center">
+                    <div class="col-md-11">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="float-start me-auto my-3 mb-lg-0">
+                                <div class="float-start me-auto my-4 mb-lg-0">
                                     <h3><span>Edit Profile</span></h3>
                                 </div>
                             </div>
@@ -108,6 +95,24 @@
                                             <a href="profile.php" class="nav-link"><h3><strong>View Profile</strong></h3></a>
                                         </li>
                                     </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form action="editprofile.php" method="post" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <div class="col-sm-12 text-center">
+                                                    <input type="file" name="image" class="form-control-file" id="myFile">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12 text-center">
+                                                    <button type="submit" name="subImages" class="btn btn-success">Upload</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -167,6 +172,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-2 mt-5">
             </div>
         </div>
     </div>

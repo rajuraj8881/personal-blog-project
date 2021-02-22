@@ -1,6 +1,9 @@
 <?php
-    include_once'connection.php';
+    // session start 
     session_start();
+    //set database Connection
+    include_once'connection.php';
+    
     if (!$_SESSION['id']) {
         header('location:login.php');
     }
@@ -14,8 +17,8 @@
     <div class="container-flued">
         <div class="row mx-5">
             <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="row my-2 shadow-block">
+            <div class="col-md-8 mt-5">
+                <div class="row my-2 shadow-block mt-5">
                     <div class="col-md-12">
                         <h1>Add New Post</h1>
                     </div>

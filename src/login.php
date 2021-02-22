@@ -25,6 +25,21 @@
             <div class="col-md-6 my-4">
                 <div class="row my-5 p-5 bg-light" >
                     <h1 class="text-center mt-1">Sign In</h1>
+                    <?php
+                        $msg = "";
+                        if (isset($_GET['error'])) {
+                            $msg = "Please Fill in the Blanks";
+                            echo '<div class="alert alert-danger ">'.$msg.'</div>';
+                        }
+                        if (isset($_GET['success'])) {
+                            $msg = "You are successfully registered.";
+                            echo '<div class="alert alert-success">'.$msg.'</div>';
+                        }
+                        if (isset($_GET['check'])) {
+                            $msg = "Incorrect Email Or Passwoerd.";
+                            echo '<div class="alert alert-danger ">'.$msg.'</div>';
+                        }
+                    ?>
                     <form action="process.php" method="post">
                         <div class="form-group">
                             <label for="usr"><Strong>Email Address</Strong></label>

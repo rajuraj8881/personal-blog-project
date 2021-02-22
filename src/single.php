@@ -1,11 +1,13 @@
 <?php
-    include_once 'connection.php';
-    // include header file
-    include  'lib/header.php';
-    // include menubar file
-    include 'lib/menu.php';
-
+    // session start
     session_start();
+    //set database Connection
+    include_once'connection.php';
+    // include header file
+    include'lib/header.php';
+    // include menubar file
+    include'lib/menu.php';
+
     $id = NULL;
     if(isset($_POST['id'])){
         $id = $_POST['id'];
@@ -25,17 +27,17 @@
     $users = $result->fetchAll(PDO::FETCH_OBJ);
 ?>
     <div class="container-flued">
-        <div class="row mx-0">
+        <div class="row mx-0 mt-5">
             <div class="col-md-3">
             </div>
-            <div class="col-md-6 shadow-block">
+            <div class="col-md-6 shadow-block mt-5">
                 <?php 
                     foreach($users as $user):
                 ?>
                 <div class="row my-2 p-2">
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-6 mt-4">
+                            <div class="col-md-6 mt-3">
                                 <img src="uploads/<?php echo $user->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="50" height="50" >
                                 <strong class="ms-0 mt-3 text-info"><?php echo $user->name;?></strong><span class="ms-3 text-muted">25 min ago.</span>
                             </div>

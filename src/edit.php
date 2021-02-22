@@ -1,15 +1,18 @@
 <?php 
-    include_once 'connection.php';
+    // session start 
+    session_start();
+    //set database Connection
+    include_once'connection.php';
     // include header file
-    include 'lib/header.php';
+    include'lib/header.php';
     // include menubar file
-    include 'lib/menu.php';
+    include'lib/menu.php';
 ?>
    <div class="container-flued">
         <div class="row mx-5">
             <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="row my-2 shadow-block">
+            <div class="col-md-8 mt-5">
+                <div class="row my-2 shadow-block mt-5">
                     <div class="col-md-12">
                         <h1>Edit Post</h1>
                     </div>
