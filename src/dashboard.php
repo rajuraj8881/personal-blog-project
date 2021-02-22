@@ -63,7 +63,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <form action="" method="post">
-                                    <input type="text" name="post_id" value="<?php echo $user->id; ?>">
+                                    <input type="hidden" name="post_id" value="<?php echo $user->id; ?>">
                                     <hr style="height:2px; width:100%; border-width:0;" class="shadow-block px-4">
                                     <div class="row">
                                         <div class="col-md-1">
@@ -117,13 +117,24 @@
                                     <hr style="height:2px; width:100%; border-width:0;" class="shadow-block px-4">
                                     <!-- show comment  -->
                                     <div class="row shadow-block mt-0 mx-0">
+                                        <?php
+                                            //Show comment Query
+                                            $cmmt = $conn->prepare("SELECT users.id, users.imgs, users.name, comnt.comment 
+                                                                FROM users INNER JOIN comnt ON users.id = comnt.user_id 
+                                                                where post_id= ($user->id)");
+                                            $cmmt->execute();
+                                            while($row = $cmmt->fetch(PDO::FETCH_OBJ)):
+                                        ?>
                                         <div class="col-md-12 my-2">
-                                            <img src="uploads/IMG_20201028_100601.jpg" style="margin-top: 1px;" class="rounded-circle" alt="Cinque Terre" width="20" height="20" >
-                                            <strong>sfgsdgf</strong>
+                                            <img src="uploads/<?php echo $row->imgs;?>" style="margin-top: 1px;" class="rounded-circle" alt="Cinque Terre" width="20" height="20" >
+                                            <strong><?php echo $row->name; ?></strong>
                                         </div>
                                         <div class="col-md-12">
-                                            <p class="lead mb-2" style="font-size: 15px; font-style: normal;"><span>rfgdfgdfgdfgf</span></p>
+                                            <p class="lead mb-2" style="font-size: 15px; font-style: normal;"><span><?php echo $row->comment; ?></span></p>
                                         </div>
+                                        <?php
+                                            endwhile;
+                                        ?>
                                     </div>
                                     <!-- insert comment -->
                                     <div class="col-md-12">
