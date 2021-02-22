@@ -33,14 +33,14 @@
         if (isset($_SESSION['email'])) {
     ?>
     <div class="container-flued ">
-        <div class="row mx-0">
+        <div class="row mx-0 mt-5">
             <div class="col-md-3">
             </div>
-            <div class="col-md-6 bg-transparent mt-5"> 
+            <div class="col-md-6 bg-transparent my-3"> 
                 <?php 
                     foreach($users as $user):
                 ?>
-                <div class="row my-2 p-2 shadow-block mt-5">
+                <div class="row my-2 p-2 shadow-block mt-4">
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6 my-4">
