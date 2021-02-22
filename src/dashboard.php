@@ -1,4 +1,4 @@
-    <?php
+<?php
         // session start 
         session_start();
         //set database Connection
@@ -62,6 +62,87 @@
                     <div class="col -md-12">
                         <div class="row">
                             <div class="col-md-12">
+                                <?php
+                                    //like dislike System
+                                    if (isset($_POST['like']) ) {
+                                        $post_id = $_POST['post_id'];
+                                        $type = true;
+                                        $type2 = false;
+
+                                        //check user already like
+                                        $query = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
+                                        $query->execute(array(':post_id'=> $post_id,
+                                                                ':user_id'=> $uid,
+                                                                ':islikes' => $type
+                                            ));
+                                        if ($query->rowCount() == 0) {
+                                            //If before the user does not like  then insert 1(like)
+                                            $like = $conn->prepare("INSERT INTO likesdislikes(user_id, post_id, islikes) VALUES(:user_id, :post_id, :islikes)");
+                                            $like->bindParam(':user_id', $uid);
+                                            $like->bindParam(':post_id', $post_id);
+                                            $like->bindParam(':islikes', $type);
+                                            $like->execute();
+                                        }elseif ($query->rowCount() == 1){
+                                            //If before the user does not like  then insert 1(like)
+                                            $like = $conn->prepare("DELETE FROM likesdislikes WHERE user_id = $uid AND post_id = $post_id");
+                                            $like->execute();
+                                        }
+
+                                        //check user already dislike 
+                                        $unlikeChack = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
+                                        $unlikeChack->execute(array(':post_id'=> $post_id,
+                                                                ':user_id'=> $uid,
+                                                                ':islikes' => $type2
+                                            ));
+                                        if ($unlikeChack->rowCount() == 1) {
+                                            //if user allready dislike then like
+                                            $dele = $conn->prepare( "DELETE FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
+                                            $dele->bindParam(":post_id",$post_id,PDO::PARAM_INT);
+                                            $dele->bindParam(":user_id",$uid,PDO::PARAM_INT);
+                                            $dele->bindParam(":islikes",$type2,PDO::PARAM_INT);
+                                            $dele->execute();
+                                        }
+
+                                    }else if (isset($_POST['dislike']) ) {
+                                        $post_id = $_POST['post_id'];
+                                        $type = false;
+                                        $type2 = true;
+
+                                        //check user already like
+                                        $query = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
+                                        $query->execute(array(':post_id'=> $post_id,
+                                                                ':user_id'=> $uid,
+                                                                ':islikes' => $type
+                                            ));
+                                        if ($query->rowCount() == 0) {
+                                            //If the user does not dislike before then insert 0(dislike)
+                                            $dislike = $conn->prepare("INSERT INTO likesdislikes(user_id, post_id, islikes) VALUES(:user_id, :post_id, :islikes)");
+                                            $dislike->bindParam(':user_id', $uid);
+                                            $dislike->bindParam(':post_id', $post_id);
+                                            $dislike->bindParam(':islikes', $type);
+                                            $dislike->execute();
+                                        }elseif ($query->rowCount() == 1){
+                                            //If before the user does not like  then insert 1(like)
+                                            $like = $conn->prepare("DELETE FROM likesdislikes WHERE user_id = $uid AND post_id = $post_id");
+                                            $like->execute();
+                                        }
+
+                                        //check user already like 
+                                        $likeChack = $conn->prepare( "SELECT * FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
+                                        $likeChack->execute(array(':post_id'=> $post_id,
+                                                                ':user_id'=> $uid,
+                                                                ':islikes' => $type2
+                                            ));
+                                        if ($likeChack->rowCount() == 1) {
+                                            //if user allready like then dislike
+                                            $dele = $conn->prepare( "DELETE FROM likesdislikes WHERE post_id = :post_id AND user_id = :user_id AND islikes = :islikes");
+                                            $dele->bindParam(":post_id",$post_id,PDO::PARAM_INT);
+                                            $dele->bindParam(":user_id",$uid,PDO::PARAM_INT);
+                                            $dele->bindParam(":islikes",$type2,PDO::PARAM_INT);
+                                            $dele->execute();
+                                        }
+                                    }
+                                ?>
                                 <form action="" method="post">
                                     <input type="hidden" name="post_id" value="<?php echo $user->id; ?>">
                                     <hr style="height:2px; width:100%; border-width:0;" class="shadow-block px-4">
@@ -96,7 +177,6 @@
                                             ?>
                                             <h4><span class="mx-0 text-danger"><?php echo $totaDislike;?></span></h4>
                                         </div>
-
                                         <!-- show number of comenter section -->
                                         <div class="col-md-3">
                                             <div class="row">
@@ -114,6 +194,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                </form>
                                     <hr style="height:2px; width:100%; border-width:0;" class="shadow-block px-4">
                                     <!-- show comment  -->
                                     <div class="row shadow-block mt-0 mx-0">
@@ -139,31 +220,36 @@
                                     <!-- insert comment -->
                                     <div class="col-md-12">
                                         <div class="row">
-                                            <form action="process.php" method="post">
-                                                <div class="form-group">
-                                                    <div class="col-md-12">
-                                                        <input type="hidden" name="post_id" class="form-control" value="">
-                                                    </div>
-                                                </div>
+                                            <form action="comment.php" method="post">
+                                                <?php 
+                                                    $CmtImg = $conn->prepare("SELECT * FROM users WHERE id=$uid");
+                                                    $CmtImg->execute();
+                                                    $showImage = $CmtImg->fetchAll(PDO::FETCH_OBJ);
+                                                    foreach($showImage as $img):
+                                                ?>
+                                                <input type="hidden" name="post_id" value="<?php echo $user->id; ?>">
                                                 <div class="col-md-12 mb-2">
                                                     <div class="row mt-2">
                                                         <div class="col-md-1 my-3">
-                                                            <img src="uploads/IMG_20201028_100601.jpg" class="rounded-circle" alt="Cinque Terre" width="40" height="40">
+                                                            <img src="uploads/<?php echo $img->imgs;?>" class="rounded-circle" alt="Cinque Terre" width="40" height="40">
                                                         </div>
                                                         <div class="col-md-11">
                                                             <input type="text" name="user-comment" class="form-control" placeholder="Write Comments">  
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="col-sm-2">
-                                                                <button type="submit" value="comment" name="comment" class="btn btn-success">Comment</button>
+                                                                <button type="submit" value="comment" name="Dcomment" class="btn btn-success">Comment</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <?php
+                                                    endforeach;
+                                                ?>
                                             </form>
                                         </div>
                                     </div>
-                                </form>
+                                
                             </div>
                         </div>
                     </div>
@@ -171,6 +257,8 @@
                 <?php
                     endforeach;
                 ?>
+                <div class="row my-2 p-2 shadow-block mt-5">
+                </div>
             </div>
             <div class="col-md-3">
             </div>
